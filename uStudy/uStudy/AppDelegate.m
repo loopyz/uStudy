@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Angela Zhang. All rights reserved.
 //
 
+#define FORCE_LOGOUT false
+#import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
 
 @implementation AppDelegate
@@ -13,6 +15,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    // Create LoginUIViewController instance where we will put the login button
+    
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    
+    self.loginViewController = loginViewController;
     // Override point for customization after application launch.
     
     LoginViewController *lvc = [[LoginViewController alloc] init];
@@ -21,6 +29,24 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    // Whenever a person opens the app, check for a cached session
+    if (!FORCE_LOGOUT && FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        // If there's one, just open the session silently, without showing the user the login UI
+        [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
+                                           allowLoginUI:NO
+                                      completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                          // Handler for session state changes
+                                          // This method will be called EACH time the session state changes,
+                                          // also for intermediate states and NOT just when the session open
+                                          [self sessionStateChanged:session state:state error:error];
+                                      }];
+    } else {
+        //UIButton *loginButton = [self.loginViewController loginButton];
+        //[loginButton setTitle:@"Log in with Facebook" forState:UIControlStateNormal];
+//        [eventListViewController presentViewController:loginViewController animated:YES completion:NULL];
+    }
+    
     return YES;
 }
 
