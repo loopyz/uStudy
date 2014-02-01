@@ -21,7 +21,7 @@
 		0B2443B8189C621A002EBB59 /* uStudyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2443B7189C621A002EBB59 /* uStudyTests.m */; };
 		0B2443C3189C6229002EBB59 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2443C2189C6229002EBB59 /* LoginViewController.m */; };
 		0B2443C5189C6F68002EBB59 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */; };
-		0BF6C816189C76C700034D71 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6C815189C76C700034D71 /* CalendarViewController.m */; };
+		0BF6C819189C7B6900034D71 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6C818189C7B6900034D71 /* CalendarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +54,8 @@
 		0B2443C1189C6229002EBB59 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0B2443C2189C6229002EBB59 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
-		0BF6C814189C76C700034D71 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
-		0BF6C815189C76C700034D71 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		0BF6C817189C7B6900034D71 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		0BF6C818189C7B6900034D71 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +121,8 @@
 				0B2443A2189C621A002EBB59 /* AppDelegate.m */,
 				0B2443C1189C6229002EBB59 /* LoginViewController.h */,
 				0B2443C2189C6229002EBB59 /* LoginViewController.m */,
-				0BF6C814189C76C700034D71 /* CalendarViewController.h */,
-				0BF6C815189C76C700034D71 /* CalendarViewController.m */,
+				0BF6C817189C7B6900034D71 /* CalendarViewController.h */,
+				0BF6C818189C7B6900034D71 /* CalendarViewController.m */,
 				0B2443A4189C621A002EBB59 /* Images.xcassets */,
 				0B244399189C621A002EBB59 /* Supporting Files */,
 			);
@@ -253,7 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BF6C816189C76C700034D71 /* CalendarViewController.m in Sources */,
+				0BF6C819189C7B6900034D71 /* CalendarViewController.m in Sources */,
 				0B2443A3189C621A002EBB59 /* AppDelegate.m in Sources */,
 				0B24439F189C621A002EBB59 /* main.m in Sources */,
 				0B2443C3189C6229002EBB59 /* LoginViewController.m in Sources */,

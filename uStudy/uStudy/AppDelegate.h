@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "CalendarViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
