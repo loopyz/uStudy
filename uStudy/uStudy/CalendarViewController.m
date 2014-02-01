@@ -7,6 +7,7 @@
 //
 
 #import "CalendarViewController.h"
+#import "SearchClassesViewController.h"
 
 @interface CalendarViewController ()
 @property (nonatomic, strong) NSMutableIndexSet *optionIndices;
@@ -26,7 +27,7 @@
         
         //gradient background
         UIGraphicsBeginImageContext(self.view.frame.size);
-        [[UIImage imageNamed:@"calendar-bg-3.png"] drawInRect:self.view.bounds];
+        [[UIImage imageNamed:@"calendar-bg.png"] drawInRect:self.view.bounds];
         UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         self.view.backgroundColor = [UIColor colorWithPatternImage:image];
@@ -217,9 +218,12 @@
         case 0:
             //Create
             break;
-        case 1:
+        case 1: {
             //Search
+            SearchClassesViewController *svc = [[SearchClassesViewController alloc] init];
+            [self.navigationController pushViewController:svc animated:YES];
             break;
+        }
         case 2:
             //Gameify!
             break;
