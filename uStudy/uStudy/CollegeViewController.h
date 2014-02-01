@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RNFrostedSidebar.h"
 
-@interface CollegeViewController : UIViewController
+@interface CollegeViewController : UIViewController <RNFrostedSidebarDelegate>
 
 @end

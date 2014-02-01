@@ -10,6 +10,7 @@
 #import <Firebase/Firebase.h>
 #import "AppDelegate.h"
 #import "SearchGroupsViewController.h"
+#import "CalendarViewController.h"
 
 
 #define firebaseURL @"https://ustudy.firebaseio.com/"
@@ -37,7 +38,6 @@
         self.tableView.separatorColor = [UIColor clearColor];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
-        //[self initNavBarItems];
         [self addBackgroundImage];
         
     
@@ -59,7 +59,7 @@
     //Hamburger menu!
     UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"burger.png"] style:UIBarButtonItemStylePlain target:self action:@selector(launchBurger:)];
     
-    self.navigationItem.leftBarButtonItem = hamburger;
+    
     
     NSArray *images = @[
                         [UIImage imageNamed:@"gear"],
@@ -72,12 +72,19 @@
     callout.delegate = self;
     [callout show];
     
+    self.navigationItem.leftBarButtonItem = hamburger;
+    
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self initNavBarItems];
+    
+    self.navigationController.navigationBar.hidden = NO;
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     

@@ -10,7 +10,7 @@
 #import "RNFrostedSidebar.h"
 #import <Firebase/Firebase.h>
 
-@interface SearchClassesViewController : UITableViewController <RNFrostedSidebarDelegate>
+@interface SearchClassesViewController : UITableViewController
 
 @property (nonatomic, strong) NSMutableArray* classes;
 @property (nonatomic, strong) Firebase* firebase;

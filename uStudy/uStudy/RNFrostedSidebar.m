@@ -598,11 +598,11 @@ static RNFrostedSidebar *rn_frostedMenu;
         [circleShape addAnimation:animation forKey:nil];
     }
     
-    if ([self.delegate respondsToSelector:@selector(sidebar:didTapItemAtIndex:)]) {
-        [self.delegate sidebar:self didTapItemAtIndex:index];
+    if ([_delegate respondsToSelector:@selector(sidebar:didTapItemAtIndex:)]) {
+        [_delegate sidebar:self didTapItemAtIndex:index];
     }
-    if ([self.delegate respondsToSelector:@selector(sidebar:didEnable:itemAtIndex:)]) {
-        [self.delegate sidebar:self didEnable:didEnable itemAtIndex:index];
+    if ([_delegate respondsToSelector:@selector(sidebar:didEnable:itemAtIndex:)]) {
+        [_delegate sidebar:self didEnable:didEnable itemAtIndex:index];
     }
 }
 

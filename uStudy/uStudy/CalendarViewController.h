@@ -16,5 +16,7 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *data;
-
+@property (nonatomic) UIButton *firstButton;
+@property (nonatomic) BOOL notTapped;
+- (void)launchBurger:(id)sender;
 @end

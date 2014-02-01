@@ -8,7 +8,7 @@
 
 #import "CalendarViewController.h"
 #import "SearchClassesViewController.h"
-#import "SearchGroupsViewController.h"
+#import "CreateGroupViewController.h"
 
 #import <Firebase/Firebase.h>
 
@@ -22,6 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.notTapped = true;
         //[self.view setBackgroundColor:[UIColor colorWithRed:0 green:0.655 blue:0.796 alpha:1.0]];
         
         CGRect frame = CGRectMake(0.0, 0, self.view.bounds.size.width, self.view.bounds.size.height/2 + 40);
@@ -60,6 +61,7 @@
             NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:newDate];
             NSInteger day = [components day];
             NSLog(@"%d", day);
+            NSInteger month = [components month];
             
             //Get day of the week
             NSDateFormatter *dayOfWeek = [[NSDateFormatter alloc] init];
@@ -83,22 +85,31 @@
             weekdayLabel.text = [NSString stringWithFormat:@"%@", weekday];
             [weekdayLabel setTextColor:[UIColor whiteColor]];
             [calendarCell addSubview:weekdayLabel];
+            if (i == 0) {
+                [calendarCell setAlpha:.5];
+                _firstButton = calendarCell;
+            }
             
             UILabel *dayOfWeekLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 25, cellSize, cellSize)];
             dayOfWeekLabel.lineBreakMode  = NSLineBreakByWordWrapping;
             dayOfWeekLabel.textAlignment = NSTextAlignmentCenter;
             [dayOfWeekLabel setBackgroundColor:[UIColor clearColor]];
             [dayOfWeekLabel setFont:[UIFont fontWithName:@"Helvetica" size:22]];
-            dayOfWeekLabel.text = [NSString stringWithFormat:@"%d", day];
+            dayOfWeekLabel.text = [NSString stringWithFormat:@"%d", (int)day];
             [dayOfWeekLabel setTextColor:[UIColor whiteColor]];
             [calendarCell addSubview:dayOfWeekLabel];
+            
+            NSMutableString *finalDate = [NSMutableString stringWithFormat:@"%.2ld/", (long)month];
+            NSMutableString *dayOfWeekS = [NSMutableString stringWithString:dayOfWeekLabel.text];
+            [finalDate appendString:dayOfWeekS];
+            calendarCell.titleLabel.text = finalDate;
             
             [self.view addSubview:calendarCell];
             
             [dates addObject:newDate];
         }
         
-        _data = [[NSMutableArray alloc] initWithObjects:@"test1", @"test2", nil];
+        _data = [[NSMutableArray alloc] initWithObjects:@"15-213: Computer Systems", @"05-392: Interaction Design Overview", nil];
         
         int tableYStart = margin * 14 + cellSize * 4;
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, tableYStart, screenWidth, screenHeight-tableYStart)
@@ -106,6 +117,10 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.tableHeaderView = nil;
+        
+        UIColor *gray = [UIColor colorWithRed:186/255.0f green:184/255.0f blue:184/255.0f alpha:1.0f];
+        //self.tableView.backgroundColor = gray;
+        self.tableView.alpha = .6;
                 
         /*UIView* bgView = [[UIView alloc] init];
         bgView.backgroundColor = [UIColor colorWithRed:0 green:0.655 blue:0.796 alpha:1.0];
@@ -142,9 +157,22 @@
 
 - (void)tapped:(id)sender
 {
+    NSLog(@"oh hello");
     UIButton *button = sender;
     NSString *date = button.titleLabel.text;
     NSLog(@"%@", date);
+    
+    if (_notTapped && sender != self.firstButton) {
+        [self.firstButton setAlpha:1.0];
+        self.notTapped = false;
+    }
+    else {
+        [self.firstButton setAlpha:1.0];
+        [sender setAlpha:.5];
+        self.firstButton = sender;
+    }
+    
+    
     
     //TODO: at this point query firebase using date (which has format 'Mon\n17' [example]) to get events for given day
     //then set items that get returned from that as the items in the NSMutableArray _data
@@ -188,7 +216,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.textLabel.text = [_data objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = @"detailtextlabel";
+    cell.detailTextLabel.text = @"Gates 3rd Floor";
     [cell setBackgroundColor:[UIColor clearColor]];
     //NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
     //UIImage *theImage = [UIImage imageWithContentsOfFile:path];
@@ -240,7 +268,7 @@
         }
         case 2: {
             //Gameify!
-            SearchGroupsViewController *sgvc = [[SearchGroupsViewController alloc] init];
+            CreateGroupViewController *sgvc = [[CreateGroupViewController alloc] init];
             [self.navigationController pushViewController:sgvc animated:YES];
             break;
         }
