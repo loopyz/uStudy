@@ -17,7 +17,7 @@
 
 @implementation CreateGroupViewController
 
-@synthesize classLabel, locationLabel, startTimeLabel;
+@synthesize classLabel, locationLabel;//, startTimeLabel;
 @synthesize classPickerView, locationTextField, startTimePicker;
 @synthesize classr, classes, groupName;
 
@@ -33,7 +33,7 @@
         // adding all the labels and picker views
         self.classLabel = [[UILabel alloc] init];
         self.locationLabel = [[UILabel alloc] init];
-        self.startTimeLabel = [[UILabel alloc] init];
+        //self.startTimeLabel = [[UILabel alloc] init];
         
         self.classPickerView = [[UIPickerView alloc] init];
         self.locationTextField = [[UITextField alloc] init];
@@ -44,20 +44,41 @@
     [submitButton addTarget:self action:@selector(addNewGroup) forControlEvents:UIControlEventTouchDown];
     [submitButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
         //designing stuff
-        self.classLabel.frame = CGRectMake(20,10,100,100);
+
+        self.classLabel.frame = CGRectMake(20,30,100,100);
         self.classLabel.text = @"Class";
-        self.locationLabel.frame = CGRectMake(20,120,100,100);
+        self.classLabel.textColor = [UIColor whiteColor];
+        
+        self.locationLabel.frame = CGRectMake(20,160,100,100);
         self.locationLabel.text = @"Location";
-        self.startTimeLabel.frame = CGRectMake(20,220,100,100);
+        self.locationLabel.textColor = [UIColor whiteColor];
+        
+        //self.startTimeLabel.frame = CGRectMake(20,190,100,100);
+        //self.startTimeLabel.text = @"Starts";
+        //self.startTimeLabel.textColor = [UIColor whiteColor];
         
         
-        self.classPickerView.frame = CGRectMake(20,0,280,200);
+        self.classPickerView.frame = CGRectMake(100,30,200,100);
+        self.classPickerView.backgroundColor = [UIColor whiteColor];
+        [self.classPickerView setAlpha:0.8];
         
-        self.locationTextField.frame = CGRectMake(100,155,180,30);
-        self.locationTextField.backgroundColor = [UIColor blackColor];
-        self.locationTextField.textColor = [UIColor whiteColor];
-        self.startTimePicker.frame = CGRectMake(20,240,400,400);
-        submitButton.frame = CGRectMake(20,400,100,100);
+        self.locationTextField.frame = CGRectMake(100,200,200,20);
+        self.locationTextField.backgroundColor = [UIColor whiteColor];
+        self.locationTextField.textColor = [UIColor blackColor];
+        [self.locationTextField setAlpha:0.8];
+        
+        self.startTimePicker.frame = CGRectMake(20,230,280,100);
+        self.startTimePicker.backgroundColor = [UIColor whiteColor];
+        [self.startTimePicker setAlpha:0.8];
+        
+        submitButton.frame = CGRectMake(60,400,200,40);
+        submitButton.backgroundColor = [UIColor whiteColor];
+        submitButton.titleLabel.text = @"Add Group";
+        submitButton.titleLabel.textColor = [UIColor blackColor];
+        [submitButton setTitle:@"Add Group" forState:UIControlStateNormal];
+        [submitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [submitButton setAlpha:0.8];
+        
         
         //make location text field pretty
         self.locationTextField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -77,6 +98,8 @@
         self.classPickerView.dataSource = self;
         self.classPickerView.showsSelectionIndicator = YES;
         [self loadAndUpdateClasses];
+        [self.classPickerView reloadAllComponents];
+        
         
         [self.view addSubview:self.locationLabel];
         [self.view addSubview:self.classLabel];
@@ -85,13 +108,13 @@
         [self.view addSubview:self.locationTextField];
         [self.view addSubview:self.startTimePicker];
         
-        [self.view addSubview:self.startTimeLabel];
+        //[self.view addSubview:self.startTimeLabel];
         [self.view addSubview:submitButton];
         
-        NSString *username = @"633454537";
+        /*NSString *username = appDelegate.username;
         //NSMutableDictionary *newEvents = [[NSMutableDictionary alloc] init];
         Firebase *usersRef = [[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users"];
-        Firebase *eventsRef = [[usersRef childByAppendingPath:username] childByAppendingPath:@"events"];
+        Firebase *eventsRef = [[usersRef childByAppendingPath:username] childByAppendingPath:@"events"];*/
         
     }
     return self;
@@ -127,10 +150,10 @@
     
     
     
-    NSString *username = @"633454537";
+    /*NSString *username = @"633454537";
     //NSMutableDictionary *newEvents = [[NSMutableDictionary alloc] init];
     Firebase *usersRef = [[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users"];
-    Firebase *eventsRef = [[usersRef childByAppendingPath:username] childByAppendingPath:@"events"];
+    Firebase *eventsRef = [[usersRef childByAppendingPath:username] childByAppendingPath:@"events"];*/
     
     // put fb event id here.
     //[[eventsRef childByAutoId] setValue:@"Cameras"];
@@ -142,7 +165,7 @@
 {
     AppDelegate* appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    NSString *username = @"633454537";//appDelegate.username;
+    NSString *username = appDelegate.username;
     
     Firebase *firebase = [[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/"];
     Firebase *classesRef = [[[firebase childByAppendingPath:@"users"] childByAppendingPath:username] childByAppendingPath:@"classes"];
@@ -153,11 +176,14 @@
         } else {
             NSArray *classesSnp = [snapshot.value allValues];
             self.classes = [classesSnp mutableCopy];
-            NSLog(self.classes[0]);
+            //NSLog(self.classes[0]);
         }
+        //self.classPickerView.delegate = self;
+        //self.classPickerView.dataSource = self;
         [self.classPickerView reloadAllComponents];
     }];
     
+    [self.classPickerView reloadAllComponents];
     
 }
     
@@ -198,6 +224,10 @@
     self.classr = self.classes[row];
 }
 
+- (NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return self.classes[row];
+}
 - (void)exit {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
