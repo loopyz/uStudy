@@ -154,9 +154,9 @@
 //    Firebase* interestsRef = [[usersRef childByAppendingPath:username] childByAppendingPath:@"college"];
 //    
 //    
-//    [self dismissViewControllerAnimated:YES completion:^() {
-//        
-//    }];
+    [self dismissViewControllerAnimated:YES completion:^() {
+        
+    }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
