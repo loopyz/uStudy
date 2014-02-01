@@ -15,6 +15,10 @@
 @property (strong, nonatomic) UIPickerView *classPickerView;
 
 @property (strong, nonatomic) UILabel *locationLabel;
+
+@property (strong, nonatomic) UILabel *timeLabel;
+
+
 @property (strong, nonatomic) UITextField *locationTextField;
 
 @property (strong, nonatomic) UILabel *startTimeLabel;

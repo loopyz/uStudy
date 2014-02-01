@@ -26,7 +26,13 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        [self addBackgroundImage];
+        //nav bar title
+        UILabel *title = [[UILabel alloc]init];
+        title.text = @"Create Study Session";
+        title.textColor = [UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1.0];
+        title.font = [UIFont systemFontOfSize:15];
+        title.frame = CGRectMake(100, 10, 62.5, 30);
+        self.navigationItem.titleView = title;
         
         self.classes = [[NSMutableArray alloc] init];
         // Do any additional setup after loading the view.
@@ -45,12 +51,14 @@
     [submitButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
         //designing stuff
 
-        self.classLabel.frame = CGRectMake(20,30,100,100);
+        self.classLabel.frame = CGRectMake(20,98,100,100);
         self.classLabel.text = @"Class";
         self.classLabel.textColor = [UIColor whiteColor];
         
-        self.locationLabel.frame = CGRectMake(20,160,100,100);
+        self.locationLabel.frame = CGRectMake(15,220,100,100);
         self.locationLabel.text = @"Location";
+        self.locationLabel.font = [UIFont systemFontOfSize:25];
+        self.locationLabel.layer.shadowColor = [[UIColor blackColor] CGColor];
         self.locationLabel.textColor = [UIColor whiteColor];
         
         //self.startTimeLabel.frame = CGRectMake(20,190,100,100);
@@ -58,20 +66,33 @@
         //self.startTimeLabel.textColor = [UIColor whiteColor];
         
         
-        self.classPickerView.frame = CGRectMake(100,30,200,100);
+        self.classPickerView.frame = CGRectMake(0,70,320,50);
         self.classPickerView.backgroundColor = [UIColor whiteColor];
         [self.classPickerView setAlpha:0.8];
         
-        self.locationTextField.frame = CGRectMake(100,200,200,20);
+        
+        self.locationTextField.frame = CGRectMake(120,250,180,30);
         self.locationTextField.backgroundColor = [UIColor whiteColor];
         self.locationTextField.textColor = [UIColor blackColor];
         [self.locationTextField setAlpha:0.8];
         
-        self.startTimePicker.frame = CGRectMake(20,230,280,100);
+        //time label
+        self.timeLabel.textColor = [UIColor whiteColor];
+        self.timeLabel.font = [UIFont systemFontOfSize:30];
+        self.timeLabel.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.timeLabel.layer.shadowOffset = CGSizeMake(1.0, 1.0);
+        self.timeLabel.layer.shadowOpacity = .5;
+        self.timeLabel.text = @"Start Time:";
+        self.timeLabel.frame = CGRectMake(200, 200, 200, 20);
+        
+        
+        
+        //time scrollable
+        self.startTimePicker.frame = CGRectMake(0,310,320,162);
         self.startTimePicker.backgroundColor = [UIColor whiteColor];
         [self.startTimePicker setAlpha:0.8];
         
-        submitButton.frame = CGRectMake(60,400,200,40);
+        submitButton.frame = CGRectMake(60,500,200,40);
         submitButton.backgroundColor = [UIColor whiteColor];
         submitButton.titleLabel.text = @"Add Group";
         submitButton.titleLabel.textColor = [UIColor blackColor];
@@ -107,6 +128,7 @@
         [self.view addSubview:self.classPickerView];
         [self.view addSubview:self.locationTextField];
         [self.view addSubview:self.startTimePicker];
+        [self.view addSubview:self.timeLabel];
         
         //[self.view addSubview:self.startTimeLabel];
         [self.view addSubview:submitButton];
@@ -116,18 +138,14 @@
         Firebase *usersRef = [[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users"];
         Firebase *eventsRef = [[usersRef childByAppendingPath:username] childByAppendingPath:@"events"];*/
         
+        UIGraphicsBeginImageContext(self.view.frame.size);
+        [[UIImage imageNamed:@"bg-2.png"] drawInRect:self.view.bounds];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        self.view.backgroundColor = [UIColor colorWithPatternImage:image];
     }
     return self;
-}
-
-- (void)addBackgroundImage
-{
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    [[UIImage imageNamed:@"calendar-bg.png"] drawInRect:self.view.bounds];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
 
 - (void)didFinishChoosing
@@ -238,6 +256,20 @@
     NSString *description = [[@"Studying for " stringByAppendingString:self.classr] stringByAppendingString:@" with uStudy"];
     
     [self createFacebookEvent:self.classr withStartTime:[self.startTimePicker date] andLocation:self.locationTextField.text andDescription:description];
+    
+    // Send text to customer
+    // TODO: de-hardcode this url zomg
+    NSString *urlAsString = [NSString stringWithFormat:@"http://twitterautomate.com/testapp/uStudy.php"];
+    NSURL *url = [[NSURL alloc] initWithString:urlAsString];
+    
+    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url] queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        if (error) {
+            NSLog(@"Error %@; %@", error, [error localizedDescription]);
+        } else {
+            NSLog(@"Twilio'd");
+        }
+    }];
 }
 
 - (NSString *)dateToString: (NSDate *)date

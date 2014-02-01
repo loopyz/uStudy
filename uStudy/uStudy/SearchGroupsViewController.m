@@ -40,7 +40,7 @@
         
         [self addBackgroundImage];
         
-        //[self initNavBarItems];
+        [self initNavBarItems];
     }
     return self;
 }
@@ -48,21 +48,18 @@
 
 - (void)initNavBarItems
 {
-    //Hamburger menu!
-    UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"burger.png"] style:UIBarButtonItemStylePlain target:self action:@selector(launchBurger:)];
+    //nav bar title
+    UILabel *title = [[UILabel alloc]init];
     
-    self.navigationItem.leftBarButtonItem = hamburger;
+    NSMutableString *temp = [NSMutableString stringWithString: self.classr];
+    [temp appendString:@" Study Sessions"];
     
-    NSArray *images = @[
-                        [UIImage imageNamed:@"gear"],
-                        [UIImage imageNamed:@"globe"],
-                        [UIImage imageNamed:@"profile"],
-                        [UIImage imageNamed:@"star"]
-                        ];
-    
-    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
-    callout.delegate = self;
-    [callout show];
+    title.text = temp;
+    NSLog(title.text);
+    title.textColor = [UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1.0];
+    title.font = [UIFont systemFontOfSize:15];
+    title.frame = CGRectMake(100, 10, 62.5, 30);
+    self.navigationItem.titleView = title;
     
 }
 
@@ -167,7 +164,6 @@
                  event[@"class"] = self.classr;
                  [self.events setObject:event forKey:eventKey];
              }
-             
              self.tableView.allowsMultipleSelection = YES;
              [self.tableView reloadData];
          }];
@@ -252,6 +248,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
