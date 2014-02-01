@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Angela Zhang. All rights reserved.
 //
 
-#define FORCE_LOGOUT false
+#define FORCE_LOGOUT true
 #import <FacebookSDK/FacebookSDK.h>
 #import <Firebase/Firebase.h>
 #import "AppDelegate.h"
@@ -33,7 +33,9 @@
     
     CreateGroupViewController *cg = [CreateGroupViewController alloc];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:calendarViewController];
+    self.navigationController = navigationController;
     self.calendarViewController = calendarViewController;
+    
     self.window.rootViewController = navigationController;
     self.window.backgroundColor = [UIColor colorWithRed:0.953 green:0.949 blue:0.949 alpha:1.0];
 
