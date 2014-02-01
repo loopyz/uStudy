@@ -8,6 +8,7 @@
 
 #define FORCE_LOGOUT false
 #import <FacebookSDK/FacebookSDK.h>
+#import <Firebase/Firebase.h>
 #import "AppDelegate.h"
 #import "CollegeViewController.h"
 #import "CalendarViewController.h"
@@ -17,6 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     
     // Create LoginUIViewController instance where we will put the login button
     
@@ -158,6 +160,9 @@
          else {
              NSLog(@"User id %@",[aUser objectForKey:@"id"]);
              self.username = aUser[@"id"];
+             
+             Firebase *userRefs = [[[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users"] childByAppendingPath:self.username];
+             [userRefs setValue:@{@"college": @"Carnegie Mellon University"}];
          }
          
          if ([self.loginViewController isViewLoaded])
