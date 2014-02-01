@@ -8,6 +8,7 @@
 
 #import "SearchGroupsViewController.h"
 #import <Firebase/Firebase.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
 
 
@@ -20,35 +21,28 @@
 @end
 
 @implementation SearchGroupsViewController
-{
-    //NSMutableArray *rectangles;
-}
+@synthesize classr;
+@synthesize firebase;
+@synthesize eventKeys;
+@synthesize events;
 
-@synthesize groups;
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id) initWithDerp:(NSString *)derp
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
+    self = [super initWithStyle:UITableViewStylePlain];
+    
+    if (self != nil) {
+        //lol
         self.tableView.separatorColor = [UIColor clearColor];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
-        //[self initNavBarItems];
         [self addBackgroundImage];
         
-        
+        //[self initNavBarItems];
     }
     return self;
 }
 
-
-- (UIImage *)randomRectangle
-{
-    NSArray* bgs = @[@"white-rect.png", @"light-green-rect.png", @"orange-rect.png", @"pink-rect.png", @"green-rect.png"];
-    
-    return [UIImage imageNamed:bgs[arc4random() % [bgs count]]];
-}
 
 - (void)initNavBarItems
 {
@@ -74,14 +68,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
+//    self.tableView.dataSource = self;
+//    self.tableView.delegate = self;
     
     //initialize array that will store the classes
-    self.groups = [[NSMutableArray alloc] init];
+    // Initialize array that will store events and event keys.
+    self.events = [[NSMutableDictionary alloc] init];
+    self.eventKeys = [[NSMutableArray alloc] init];
     
     //Initialize the root of our Firebase namespace
     self.firebase = [[Firebase alloc] initWithUrl:firebaseURL];
+    
+    self.tableView.rowHeight = 120;
+    
     [self loadAndUpdateGroups];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -97,17 +96,91 @@
     
     NSString *username = @"633454537";//appDelegate.username;
     
-    Firebase *groupsRef = [[[self.firebase childByAppendingPath:@"users"] childByAppendingPath:username] childByAppendingPath:@"groups"];
-    
-    [groupsRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        if (snapshot == [NSNull null] || snapshot.value == [NSNull null]) {
-            NSLog(@"There are no groups");
-        } else {
-            NSArray *groupsSnp = [snapshot.value allValues];
-            self.groups = [groupsSnp mutableCopy];
-            [self.tableView reloadData];
-        }
+    Firebase* eventsRef = [[self.firebase childByAppendingPath:@"events"]
+                           childByAppendingPath:self.classr];
+
+    [eventsRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+        NSString* eventKey = snapshot.value;
+        NSLog(@"Event ID added: %@", eventKey);
+        [self.eventKeys addObject:eventKey];
+        
+        __block NSMutableDictionary* event = [[NSMutableDictionary alloc] init];
+        
+        // Retrieve event from Facebook
+        FBRequestConnection *connection = [[FBRequestConnection alloc] init];
+        
+        // First request gets event info
+        FBRequest *request1 =
+        [FBRequest requestWithGraphPath:[@"/" stringByAppendingString:eventKey]
+                             parameters:nil
+                             HTTPMethod:@"GET"];
+        [connection addRequest:request1
+             completionHandler:
+         ^(FBRequestConnection *connection, id result, NSError *error) {
+             if (!error && result) {
+                 event = result;
+
+             }
+             // Store formatted date and time
+             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+             NSString *input = event[@"start_time"];
+             [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZ"]; //iso 8601 format
+             NSDate *output = [dateFormat dateFromString:input];
+             
+             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+             [formatter setDateFormat:@"h:mm a"];
+             if (event[@"start_time"])
+                 event[@"time_formatted"] = [@"Time: " stringByAppendingString:[formatter stringFromDate:output]];
+             else
+                 event[@"time_formatted"] = @"";
+             [formatter setDateFormat:@"M/d/yy"];
+             
+             if (event[@"start_time"] != Nil)
+                 event[@"date_formatted"] = [@"Date: " stringByAppendingString:[formatter stringFromDate:output]];
+             else
+                 event[@"date_formatted"] = @"";
+            }
+         ];
+        
+        // Second request retrieves the attendees count
+        NSDictionary* request2Params = [[NSDictionary alloc] initWithObjectsAndKeys: @"1", @"summary", @"0", @"limit", nil];
+        
+        FBRequest *request2 =
+        [FBRequest requestWithGraphPath: [[@"/" stringByAppendingString:eventKey] stringByAppendingString:@"/attending"]
+                             parameters:request2Params
+                             HTTPMethod: @"GET"];
+        
+        [connection addRequest:request2
+             completionHandler:
+         ^(FBRequestConnection *connection, id result, NSError *error) {
+             if (!error && result) {
+                 event[@"attendees"] = [[[result objectForKey:@"summary"] objectForKey:@"count"] stringValue];
+             }
+             if (!event || !event[@"name"]) {
+                 [[snapshot ref] removeValue];
+                 [self.eventKeys removeObject:eventKey];
+             } else {
+                 // Store event in events array
+                 event[@"ref"] = [snapshot ref];
+                 event[@"class"] = self.classr;
+                 [self.events setObject:event forKey:eventKey];
+             }
+             
+             [self.tableView reloadData];
+         }];
+        
+        [connection start];
     }];
+    
+    [eventsRef observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
+        NSLog(@"Event deleted: %@", snapshot.value);
+        
+        [self.events removeObjectForKey:snapshot.value];
+        [self.eventKeys removeObject:snapshot.value];
+        
+        [self.tableView reloadData];
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -120,7 +193,7 @@
 {
     UIGraphicsBeginImageContext(self.view.frame.size);
     
-    [[UIImage imageNamed:@"stone-bg.png"] drawInRect:self.view.bounds];
+    [[UIImage imageNamed:@"calendar-bg.png"] drawInRect:self.view.bounds];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -141,7 +214,7 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.groups count];;
+    return [self.events count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -149,71 +222,10 @@
     return 120;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];// forIndexPath:indexPath];
-    
-    // Configure the cell...
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    } else
-    {
-        // Clear old labels
-        for (UIView *v in cell.subviews) {
-            if ([v isKindOfClass:[UILabel class]])
-                [v removeFromSuperview];
-        }
-    }
-    
-    //gets class name
-    NSString *group = [self.groups objectAtIndex:indexPath.row];
-    
-    //update cell name and description
-    if(!group)
-    {
-        NSLog(@"Group not found:");
-        return cell;
-    }
-    
-    UIImage *bgRect = [[UIImage alloc] initWithData:[self randomRectangle]];
-    cell.backgroundView = [[UIImageView alloc] initWithImage: bgRect];
-    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage: bgRect];
-    
-    //group Title Label
-    UILabel *groupLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 320, 40)];
-    int size = 22;
-    int length = [group length];
-    
-    //shorted group string
-    NSRange stringRange = {0, MIN([group length], 20)};
-    // adjust the range to include dependent chars
-    stringRange = [group rangeOfComposedCharacterSequencesForRange:stringRange];
-    // Now you can create the short string
-    NSString *shortString = [group substringWithRange:stringRange];
-    
-    [self setupLabel:groupLabel forCell:cell withText:group withSize: 12];
-    
-    return cell;
-    
-    
-}
-
-// Allow deleting of rows by swipe
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [groups removeObjectAtIndex:indexPath.row];
-    
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    
-    [self.tableView reloadData];
-}
-
-//label setup
 - (void)setupLabel:(UILabel *)label forCell:(UITableViewCell *)cell withText:(NSString*)text {
     [self setupLabel:label forCell:cell withText:text withSize: 12];
 }
+
 
 - (void)setupLabel:(UILabel *)label forCell:(UITableViewCell *)cell withText:(NSString*)text
           withSize:(int)size {
@@ -226,9 +238,107 @@
     label.font = [UIFont systemFontOfSize:size];
     label.textColor = [UIColor whiteColor];
     label.textAlignment = textAlignment;
+    label.layer.shadowColor = [[UIColor blackColor] CGColor];
+    label.layer.shadowOffset = CGSizeMake(1.0, 1.0);
+    label.layer.shadowOpacity = 1.0 * pow(22.0 / (double)size, 3.0); // too much work?
     [label setText:text];
     [cell.contentView addSubview:label];
 }
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell.backgroundColor = [UIColor clearColor];
+        // TODO: this doesn't seem to work...
+        cell.selectedBackgroundView.backgroundColor = [UIColor lightGrayColor];
+    }
+    
+    NSString* eventKey = [self.eventKeys objectAtIndex:indexPath.row];
+    
+    // Update cell name and description
+    NSMutableDictionary* event = self.events[eventKey];
+    if (!event)
+    {
+        NSLog(@"Event not found: %@!", eventKey);
+        return cell;
+    }
+
+    
+    NSLog(@"Updating event: %@", event[@"name"]);
+    
+    // Event title
+    UILabel *ttitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 320, 40)];
+    int size = 22;
+    int length = [event[@"name"] length];
+    if (length > 28)
+    {
+        size = size*28/length;
+    }
+    
+    [self setupLabel:ttitle forCell:cell withText:event[@"name"] withSize:size];
+    
+    // Date label
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 320, 40)];
+    [self setupLabel:dateLabel forCell:cell withText:event[@"date_formatted"]];
+    
+    // Time label
+    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 42, 320, 40)];
+    [self setupLabel:timeLabel forCell:cell withText:event[@"time_formatted"]];
+
+    
+    // Number attending label
+    NSString *attendees = event[@"attendees"];
+    
+    UILabel *numAttendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(145, 50, 100, 40)];
+    [self setupLabel:numAttendingLabel forCell:cell withText:attendees withSize:28 withAlignment:NSTextAlignmentRight];
+    
+    UILabel *numAttendingBar = [[UILabel alloc] initWithFrame:CGRectMake(250, 50, 20, 40)];
+    [self setupLabel:numAttendingBar forCell:cell withText:@"|" withSize:28];
+
+    // Attending label
+    UILabel *attendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 70, 120, 40)];
+    [self setupLabel:attendingLabel forCell:cell withText:@"attending" withSize:10];
+    
+    return cell;
+    
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row >= [self.eventKeys count])
+        return;
+    
+    NSString* eventKey = [self.eventKeys objectAtIndex:indexPath.row];
+    NSLog(@"Selected event: %@", eventKey);
+    NSMutableDictionary *event = self.events[eventKey];
+    
+    //[self openJoinEventView:event];
+}
+
+- (void)exit
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
+// Allow deleting of rows by swipe
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    [events removeObjectAtIndex:indexPath.row];
+//    
+//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    
+//    [self.tableView reloadData];
+//}
+
+
+
 
 /*
  // Override to support conditional editing of the table view.

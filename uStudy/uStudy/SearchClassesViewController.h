@@ -17,4 +17,6 @@
 @property (nonatomic) bool done;
 @property (nonatomic, strong) NSArray *rectangles;
 @property (nonatomic) int count;
+
+
 @end

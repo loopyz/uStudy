@@ -14,5 +14,12 @@
 
 @property (nonatomic, strong) NSMutableArray* groups;
 @property (nonatomic, strong) Firebase* firebase;
+@property (strong, nonatomic) NSMutableArray *eventKeys;
+@property (nonatomic, strong) NSMutableDictionary* events;
 @property (nonatomic) bool done;
+@property (strong, nonatomic) NSString *classr;
+
+- (id) initWithDerp:(NSString*)derp;
+
+-(id)initWithStyle:(NSInteger)style withClass:(NSString*)classr;
 @end

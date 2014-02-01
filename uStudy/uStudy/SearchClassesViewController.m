@@ -9,6 +9,7 @@
 #import "SearchClassesViewController.h"
 #import <Firebase/Firebase.h>
 #import "AppDelegate.h"
+#import "SearchGroupsViewController.h"
 
 
 #define firebaseURL @"https://ustudy.firebaseio.com/"
@@ -122,7 +123,7 @@
 - (void)addBackgroundImage
 {
     UIGraphicsBeginImageContext(self.view.frame.size);
-    [[UIImage imageNamed:@"stone-bg.png"] drawInRect:self.view.bounds];
+    [[UIImage imageNamed:@"calendar-bg.png"] drawInRect:self.view.bounds];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -262,6 +263,22 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row >= [self.classes count])
+        return;
+    NSString *classr = [self.classes objectAtIndex:indexPath.row];
+    NSLog(@"Selected Class: %@", classr);
+    
+//    SearchGroupsViewController *sgvc = [[SearchGroupsViewController alloc] initWithNibName:@"calendar-bg.png" bundle:nil withClass:class];
+    NSLog(@"found it?");
+    
+    SearchGroupsViewController *sgvc = [[SearchGroupsViewController alloc] initWithDerp:classr];
+    
+    //SearchGroupsViewController *sgvc = [[SearchGroupsViewController alloc] initWithStyle:UITableViewStylePlain withClass:classr];
+    [self.navigationController pushViewController:sgvc animated:YES];
+
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
