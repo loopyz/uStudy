@@ -179,11 +179,15 @@
     
     NSArray *randomClasses = @[@"15-213: Computer Systems", @"05-392: Interaction Design", @"21-127: Concepts of Mathematics", @"85-241: Social Psychology", @"85-251: Personality", @"67-272: Application Design", @"51-328: Advanced Web Design"];
     
+    _data = [[NSMutableArray alloc] init];
+    
     int randNum = arc4random() % [randomFloors count];
     
+    
     for (int x = 0; x < randNum; x++) {
-        NSIndexPath *path = [NSIndexPath indexPathForRow:x inSection:0];
-        [self tableView:_tableView cellForRowAtIndexPath:path forClasses:randomClasses forPlaces:randomFloors];
+        [_data addObject:randomClasses[x]];
+        //NSIndexPath *path = [NSIndexPath indexPathForRow:x inSection:0];
+        //[self tableView:_tableView cellForRowAtIndexPath:path forClasses:randomClasses forPlaces:randomFloors];
     }
     [_tableView reloadData];
     

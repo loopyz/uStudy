@@ -216,7 +216,13 @@
     
     //class name label: TODO GET FROM FIREBASEEE :P
     UILabel *className = [[UILabel alloc] initWithFrame:CGRectMake(115, 15, 190, 40)];
-    [self setupLabel:className forCell:cell withText:@"Introduction to Computer Systems" withSize:12];
+    NSMutableDictionary *tempdict = [[NSMutableDictionary alloc] init];
+    [tempdict setValue:@"Designing Human-Centered Softare" forKey:@"05-391"];
+    [tempdict setValue:@"Intro to Computer Systems" forKey:@"15-213"];
+    [tempdict setValue:@"Imperative Programming" forKey:@"15-122"];
+    [tempdict setValue:@"Great Theoretical Ideas for CS" forKey:@"15-251"];
+    [tempdict setValue:@"Intro to Web Design" forKey:@"51-237"];
+    [self setupLabel:className forCell:cell withText:tempdict[shortString] withSize:12];
     
     
     return cell;

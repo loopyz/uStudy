@@ -168,6 +168,7 @@
                  [self.events setObject:event forKey:eventKey];
              }
              
+             self.tableView.allowsMultipleSelection = YES;
              [self.tableView reloadData];
          }];
         
@@ -319,10 +320,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (indexPath.row >= [self.eventKeys count])
         return;
     
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     NSString* eventKey = [self.eventKeys objectAtIndex:indexPath.row];
+    
     NSLog(@"Selected event: %@", eventKey);
     NSMutableDictionary *event = self.events[eventKey];
     
