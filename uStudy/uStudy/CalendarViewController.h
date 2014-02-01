@@ -10,4 +10,6 @@
 
 @interface CalendarViewController : UIViewController
 
+- (void)loadAndUpdateEvents;
+
 @end

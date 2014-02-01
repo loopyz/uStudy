@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Angela Zhang. All rights reserved.
 //
 
-#define FORCE_LOGOUT false
+#define FORCE_LOGOUT true
 #import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
 #import "CollegeViewController.h"
@@ -24,16 +24,29 @@
     
     
     self.loginViewController = loginViewController;
-    // Override point for customization after application launch.
     
-    LoginViewController *lvc = [[LoginViewController alloc] init];
+    CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
     
-    CollegeViewController *temp = [[CollegeViewController alloc] init];
+    self.calendarViewController = calendarViewController;
     
-    self.window.rootViewController = lvc;
-    
-    self.window.backgroundColor = [UIColor whiteColor];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:calendarViewController];
+    self.calendarViewController = calendarViewController;
+    self.window.rootViewController = navigationController;
+    self.window.backgroundColor = [UIColor colorWithRed:0.953 green:0.949 blue:0.949 alpha:1.0];
+
+//    // Override point for customization after application launch.
+//    
+//    LoginViewController *lvc = [[LoginViewController alloc] init];
+//    
+//    CollegeViewController *temp = [[CollegeViewController alloc] init];
+//    
+//    self.window.rootViewController = lvc;
+//    
+//    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    if (FORCE_LOGOUT)
+        [self logout];
     
     // Whenever a person opens the app, check for a cached session
     if (!FORCE_LOGOUT && FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
@@ -49,7 +62,7 @@
     } else {
         //UIButton *loginButton = [self.loginViewController loginButton];
         //[loginButton setTitle:@"Log in with Facebook" forState:UIControlStateNormal];
-//        [eventListViewController presentViewController:loginViewController animated:YES completion:NULL];
+        [calendarViewController presentViewController:loginViewController animated:YES completion:NULL];
     }
     
     return YES;
@@ -174,7 +187,7 @@
              
              //             CollegeViewController *collegeViewController = [[CollegeViewController alloc] init];
              //[self.CalendarViewController presentViewController:interestsViewController animated:YES completion:^() {
-             //[self.CalendarViewController loadAndUpdateEvents];
+             [self.calendarViewController loadAndUpdateEvents];
              //}];
          }
      }];
