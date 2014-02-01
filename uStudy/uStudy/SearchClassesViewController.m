@@ -62,13 +62,13 @@
     
     self.navigationItem.leftBarButtonItem = hamburger;
     
-    //logo
-    /* Setting up navigation bar items */
-    UIView *logoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 180, 50)];
-    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
-    titleImageView.frame = CGRectMake(60, 10, 62.5, 30);
-    [logoView addSubview:titleImageView];
-    self.navigationItem.titleView = logoView;
+    //nav bar title
+    UILabel *title = [[UILabel alloc]init];
+    title.text = @"Your Classes";
+    title.textColor = [UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1.0];
+    title.font = [UIFont systemFontOfSize:15];
+    title.frame = CGRectMake(100, 10, 62.5, 30);
+    self.navigationItem.titleView = title;
     
 }
 
