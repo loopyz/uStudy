@@ -1,18 +1,18 @@
 //
-//  SearchViewController.m
+//  SearchCollegeViewController.m
 //  uStudy
 //
-//  Created by Angela Zhang on 2/1/14.
+//  Created by Niveditha Jayasekar on 1/31/14.
 //  Copyright (c) 2014 Angela Zhang. All rights reserved.
 //
 
-#import "SearchViewController.h"
+#import "SearchCollegeViewController.h"
 
-@interface SearchViewController ()
+@interface SearchCollegeViewController ()
 
 @end
 
-@implementation SearchViewController
+@implementation SearchCollegeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

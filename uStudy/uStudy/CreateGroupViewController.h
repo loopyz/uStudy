@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CreateGroupViewController : UIViewController
+@interface CreateGroupViewController : UIViewController<UIPickerViewDataSource,UIPickerViewDelegate>
+
+@property (strong, nonatomic) NSMutableArray *classes;
+@property (strong, nonatomic) UILabel *classLabel;
+@property (strong, nonatomic) UIPickerView *classPickerView;
+
+@property (strong, nonatomic) UILabel *locationLabel;
+@property (strong, nonatomic) UITextField *locationTextField;
+
+@property (strong, nonatomic) UIButton *startTimeButton;
+@property (strong, nonatomic) UIDatePicker *startTimePicker;
+
+@property (strong, nonatomic) UIButton *endTimeButton;
+@property (strong, nonatomic) UIDatePicker *endTimePicker;
 
 @end
