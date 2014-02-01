@@ -24,14 +24,12 @@
     
     
     self.loginViewController = loginViewController;
-    
     CalendarViewController *calendarViewController = [[CalendarViewController alloc] init];
     
     self.calendarViewController = calendarViewController;
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:calendarViewController];
-    self.calendarViewController = calendarViewController;
-    self.window.rootViewController = navigationController;
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:calendarViewController];
+    self.window.rootViewController = navController;
     self.window.backgroundColor = [UIColor colorWithRed:0.953 green:0.949 blue:0.949 alpha:1.0];
 
     [self.window makeKeyAndVisible];
@@ -50,10 +48,11 @@
                                           // also for intermediate states and NOT just when the session open
                                           [self sessionStateChanged:session state:state error:error];
                                       }];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
         //UIButton *loginButton = [self.loginViewController loginButton];
         //[loginButton setTitle:@"Log in with Facebook" forState:UIControlStateNormal];
-        [calendarViewController presentViewController:loginViewController animated:YES completion:NULL];
+        [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
     }
     
     return YES;
