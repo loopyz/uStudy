@@ -20,6 +20,8 @@
 		0B2443B6189C621A002EBB59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0B2443B4189C621A002EBB59 /* InfoPlist.strings */; };
 		0B2443B8189C621A002EBB59 /* uStudyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2443B7189C621A002EBB59 /* uStudyTests.m */; };
 		0B2443C3189C6229002EBB59 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2443C2189C6229002EBB59 /* LoginViewController.m */; };
+		0B2443C5189C6F68002EBB59 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */; };
+		0BF6C816189C76C700034D71 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6C815189C76C700034D71 /* CalendarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,9 @@
 		0B2443B7189C621A002EBB59 /* uStudyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = uStudyTests.m; sourceTree = "<group>"; };
 		0B2443C1189C6229002EBB59 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0B2443C2189C6229002EBB59 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		0BF6C814189C76C700034D71 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		0BF6C815189C76C700034D71 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B2443C5189C6F68002EBB59 /* FacebookSDK.framework in Frameworks */,
 				0B244395189C621A002EBB59 /* CoreGraphics.framework in Frameworks */,
 				0B244397189C621A002EBB59 /* UIKit.framework in Frameworks */,
 				0B244393189C621A002EBB59 /* Foundation.framework in Frameworks */,
@@ -99,6 +105,7 @@
 		0B244391189C621A002EBB59 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */,
 				0B244392189C621A002EBB59 /* Foundation.framework */,
 				0B244394189C621A002EBB59 /* CoreGraphics.framework */,
 				0B244396189C621A002EBB59 /* UIKit.framework */,
@@ -114,6 +121,8 @@
 				0B2443A2189C621A002EBB59 /* AppDelegate.m */,
 				0B2443C1189C6229002EBB59 /* LoginViewController.h */,
 				0B2443C2189C6229002EBB59 /* LoginViewController.m */,
+				0BF6C814189C76C700034D71 /* CalendarViewController.h */,
+				0BF6C815189C76C700034D71 /* CalendarViewController.m */,
 				0B2443A4189C621A002EBB59 /* Images.xcassets */,
 				0B244399189C621A002EBB59 /* Supporting Files */,
 			);
@@ -244,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BF6C816189C76C700034D71 /* CalendarViewController.m in Sources */,
 				0B2443A3189C621A002EBB59 /* AppDelegate.m in Sources */,
 				0B24439F189C621A002EBB59 /* main.m in Sources */,
 				0B2443C3189C6229002EBB59 /* LoginViewController.m in Sources */,
@@ -365,6 +375,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Angela/Documents/FacebookSDK,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "uStudy/uStudy-Prefix.pch";
 				INFOPLIST_FILE = "uStudy/uStudy-Info.plist";
@@ -378,6 +392,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/Angela/Documents/FacebookSDK,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "uStudy/uStudy-Prefix.pch";
 				INFOPLIST_FILE = "uStudy/uStudy-Info.plist";
@@ -447,6 +465,7 @@
 				0B2443BD189C621A002EBB59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0B2443BE189C621A002EBB59 /* Build configuration list for PBXNativeTarget "uStudyTests" */ = {
 			isa = XCConfigurationList;
@@ -455,6 +474,7 @@
 				0B2443C0189C621A002EBB59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
