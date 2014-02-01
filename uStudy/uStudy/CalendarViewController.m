@@ -32,7 +32,7 @@
         
         //gradient background
         UIGraphicsBeginImageContext(self.view.frame.size);
-        [[UIImage imageNamed:@"calendar-bg.png"] drawInRect:self.view.bounds];
+        [[UIImage imageNamed:@"bg4.png"] drawInRect:self.view.bounds];
         UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         self.view.backgroundColor = [UIColor colorWithPatternImage:image];
@@ -177,7 +177,7 @@
     
     NSArray *randomFloors = @[@"Gates 3rd Floor", @"Hunt 1st Floor", @"Wean Library", @"Mudge C127", @"Gates 6th Floor", @"Hunt 2nd Floor", @"Resnik D253"];
     
-    NSArray *randomClasses = @[@"15-213: Computer Systems", @"05-392: Interaction Design", @"21-127: Concepts of Mathematics", @"85-241: Social Psychology", @"85-251: Personality", @"67-272: Application Design", @"51-328: Advanced Web Design"];
+    NSArray *randomClasses = @[@"15-251: Great Theor. Ideas", @"15-213: Computer Systems", @"15-251: Great Theor. Ideas", @"05-392: Interaction Design", @"21-127: Concepts of Mathematics", @"85-241: Social Psychology", @"15-251: Great Theor. Ideas", @"85-251: Personality", @"15-251: Great Theor. Ideas", @"67-272: Application Design", @"51-328: Advanced Web Design", @"15-251: Great Theor. Ideas", @"15-251: Great Theor. Ideas"];
     
     _data = [[NSMutableArray alloc] init];
     
