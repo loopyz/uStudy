@@ -399,6 +399,7 @@ static RNFrostedSidebar *rn_frostedMenu;
     
     CGRect contentFrame = self.view.bounds;
     contentFrame.origin.x = _showFromRight ? parentWidth : -_width;
+    contentFrame.origin.y = 50;
     contentFrame.size.width = _width;
     self.contentView.frame = contentFrame;
     
@@ -459,7 +460,7 @@ static RNFrostedSidebar *rn_frostedMenu;
 
 - (void)showAnimated:(BOOL)animated {
     UIViewController *controller = [UIApplication sharedApplication].keyWindow.rootViewController;
-    while (controller.presentedViewController != nil) {
+    if (controller.presentedViewController != nil) {
         controller = controller.presentedViewController;
     }
     [self showInViewController:controller animated:animated];

@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-//#import "RNFrostedSidebar.h"
+#import "RNFrostedSidebar.h"
 #import "LoginViewController.h"
 
-@interface CalendarViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface CalendarViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, RNFrostedSidebarDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *data;

@@ -130,23 +130,13 @@
         [self.view addSubview:_tableView];
         
         //Hamburger menu!
-        UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"burger.png"] style:UIBarButtonItemStylePlain target:self action:@selector(test)];
+        UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"burger.png"] style:UIBarButtonItemStylePlain target:self action:@selector(launchBurger:)];
         
         hamburger.tintColor = [UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1.0];
         
         self.navigationItem.leftBarButtonItem = hamburger;
         
-        
-//        NSArray *images = @[
-//                            [UIImage imageNamed:@"gear"],
-//                            [UIImage imageNamed:@"search-icon"],
-//                            [UIImage imageNamed:@"create-icon"],
-//                            [UIImage imageNamed:@"star"]
-//                            ];
-//        
-//        RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
-//        callout.delegate = self;
-//        [callout show];
+
         
         //logo
         /* Setting up navigation bar items */
@@ -185,6 +175,18 @@
         self.firstButton = sender;
     }
     
+    NSArray *randomFloors = @[@"Gates 3rd Floor", @"Hunt 1st Floor", @"Wean Library", @"Mudge C127", @"Gates 6th Floor", @"Hunt 2nd Floor", @"Resnik D253"];
+    
+    NSArray *randomClasses = @[@"15-213: Computer Systems", @"05-392: Interaction Design", @"21-127: Concepts of Mathematics", @"85-241: Social Psychology", @"85-251: Personality", @"67-272: Application Design", @"51-328: Advanced Web Design"];
+    
+    int randNum = arc4random() % [randomFloors count];
+    
+    for (int x = 0; x < randNum; x++) {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:x inSection:0];
+        [self tableView:_tableView cellForRowAtIndexPath:path forClasses:randomClasses forPlaces:randomFloors];
+    }
+    [_tableView reloadData];
+    
     //TODO: at this point query firebase using date (which has format 'Mon\n17' [example]) to get events for given day
     //then set items that get returned from that as the items in the NSMutableArray _data
     /*Firebase *userRefs = [[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users/633454537"];
@@ -219,6 +221,15 @@
     return [_data count];
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath forClasses:(NSArray*)classes forPlaces:(NSArray*)places
+{
+    UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    cell.detailTextLabel.text =[places objectAtIndex: indexPath.row];
+    cell.textLabel.text = [classes objectAtIndex:indexPath.row];
+    [tableView reloadData];
+    return cell;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
@@ -228,6 +239,7 @@
     }
     cell.textLabel.text = [_data objectAtIndex:indexPath.row];
     cell.detailTextLabel.text = @"Gates 3rd Floor";
+    
     [cell setBackgroundColor:[UIColor clearColor]];
     //NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
     //UIImage *theImage = [UIImage imageWithContentsOfFile:path];
@@ -244,54 +256,67 @@
 
 #pragma mark - RNFrostedSidebarDelegate
 
-//- (void)launchBurger:(id)sender {
-//    NSArray *images = @[
-//                        [UIImage imageNamed:@"gear"],
-//                        [UIImage imageNamed:@"search-icon"],
-//                        [UIImage imageNamed:@"create-icon"],
-//                        [UIImage imageNamed:@"star"]
-//                        ];
-//    NSArray *colors = @[
-//                        [UIColor colorWithRed:240/255.f green:159/255.f blue:254/255.f alpha:1],
-//                        [UIColor colorWithRed:255/255.f green:137/255.f blue:167/255.f alpha:1],
-//                        [UIColor colorWithRed:126/255.f green:242/255.f blue:195/255.f alpha:1],
-//                        [UIColor colorWithRed:119/255.f green:152/255.f blue:255/255.f alpha:1],
-//                        ];
-//    
-//    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images selectedIndices:self.optionIndices borderColors:colors];
-//    //    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
-//    callout.delegate = self;
-//    //    callout.showFromRight = YES;
-//    [callout show];
-//}
-//
-//- (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
-//    NSLog(@"Tapped item at index %i",index);
-//    switch (index) {
-//        case 0:
-//            //Create
-//            break;
-//        case 1: {
-//            //Search
-//            SearchClassesViewController *svc = [[SearchClassesViewController alloc] init];
-//            [self.navigationController pushViewController:svc animated:YES];
-//            break;
-//        }
-//        case 2: {
-//            //Gameify!
-//            CreateGroupViewController *sgvc = [[CreateGroupViewController alloc] init];
-//            [self.navigationController pushViewController:sgvc animated:YES];
-//            break;
-//        }
-//        case 3:
-//            [FBSession.activeSession closeAndClearTokenInformation];
-//            LoginViewController *loginViewController = [[LoginViewController alloc] init];
-//            [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
-//            break;
-//        //default:
-//          //  break;
-//    }
-//}
+- (void)launchBurger:(id)sender {
+    
+    NSArray *images = @[
+                        [UIImage imageNamed:@"home-icon"],
+                        [UIImage imageNamed:@"create-icon"],
+                        [UIImage imageNamed:@"search-icon"],
+                        [UIImage imageNamed:@"gear"]
+                        ];
+    NSArray *colors = @[
+                        [UIColor colorWithRed:240/255.f green:159/255.f blue:254/255.f alpha:1],
+                        [UIColor colorWithRed:255/255.f green:137/255.f blue:167/255.f alpha:1],
+                        [UIColor colorWithRed:126/255.f green:242/255.f blue:195/255.f alpha:1],
+                        [UIColor colorWithRed:119/255.f green:152/255.f blue:255/255.f alpha:1],
+                        ];
+    
+    
+    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images selectedIndices:self.optionIndices borderColors:colors];
+    
+    //    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
+    callout.delegate = self;
+    
+    //callout.showFromRight = YES;
+    
+    
+    [callout showInViewController:self animated:YES];
+
+    
+}
+
+- (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
+    NSLog(@"Tapped item at index %i",index);
+    switch (index) {
+        case 0: {
+            //Home
+            CalendarViewController *sgvc = [[CalendarViewController alloc] init];
+            [self.navigationController pushViewController:sgvc animated:YES];
+            break;
+        }
+        case 1: {
+            //Create
+            CreateGroupViewController *sgvc = [[CreateGroupViewController alloc] init];
+            [self.navigationController pushViewController:sgvc animated:YES];
+            break;
+        }
+        case 2: {
+            //Search
+            SearchClassesViewController *svc = [[SearchClassesViewController alloc] init];
+            [self.navigationController pushViewController:svc animated:YES];
+            break;
+        }
+        case 3: {
+            [FBSession.activeSession closeAndClearTokenInformation];
+            LoginViewController *loginViewController = [[LoginViewController alloc] init];
+            [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
+            break;
+        }
+        //default:
+          //  break;
+    }
+
+}
 
 -(void)test
 {

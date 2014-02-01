@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "SearchGroupsViewController.h"
 #import "CreateGroupViewController.h"
+#import "CalendarViewController.h"
 
 
 #define firebaseURL @"https://ustudy.firebaseio.com/"
@@ -57,22 +58,17 @@
 - (void)initNavBarItems
 {
     //Hamburger menu!
-//    UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"burger.png"] style:UIBarButtonItemStylePlain target:self action:@selector(launchBurger:)];
-//    
-//    
-//    
-//    NSArray *images = @[
-//                        [UIImage imageNamed:@"gear"],
-//                        [UIImage imageNamed:@"globe"],
-//                        [UIImage imageNamed:@"profile"],
-//                        [UIImage imageNamed:@"star"]
-//                        ];
-//    
-//    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
-//    callout.delegate = self;
-//    [callout show];
-//    
-//    self.navigationItem.leftBarButtonItem = hamburger;
+    UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"burger.png"] style:UIBarButtonItemStylePlain target:self action:@selector(launchBurger:)];
+    
+    self.navigationItem.leftBarButtonItem = hamburger;
+    
+    //logo
+    /* Setting up navigation bar items */
+    UIView *logoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 180, 50)];
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+    titleImageView.frame = CGRectMake(60, 10, 62.5, 30);
+    [logoView addSubview:titleImageView];
+    self.navigationItem.titleView = logoView;
     
 }
 
@@ -289,63 +285,82 @@
 
 #pragma mark - RNFrostedSidebarDelegate
 
-//- (void)launchBurger:(id)sender {
-//    NSArray *images = @[
-//                        [UIImage imageNamed:@"gear"],
-//                        [UIImage imageNamed:@"search-icon"],
-//                        [UIImage imageNamed:@"create-icon"],
-//                        [UIImage imageNamed:@"star"]
-//                        ];
-//    NSArray *colors = @[
-//                        [UIColor colorWithRed:240/255.f green:159/255.f blue:254/255.f alpha:1],
-//                        [UIColor colorWithRed:255/255.f green:137/255.f blue:167/255.f alpha:1],
-//                        [UIColor colorWithRed:126/255.f green:242/255.f blue:195/255.f alpha:1],
-//                        [UIColor colorWithRed:119/255.f green:152/255.f blue:255/255.f alpha:1],
-//                        ];
-//    
-//    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images selectedIndices:self.optionIndices borderColors:colors];
-//    //    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
-//    callout.delegate = self;
-//    //    callout.showFromRight = YES;
-//    [callout show];
-//}
-//
-//- (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
-//    NSLog(@"Tapped item at index %i",index);
-//    switch (index) {
-//        case 0:
-//            //Create
-//            break;
-//        case 1: {
-//            //Search
-//            SearchClassesViewController *svc = [[SearchClassesViewController alloc] init];
-//            [self.navigationController pushViewController:svc animated:YES];
-//            break;
-//        }
-//        case 2: {
-//            //Gameify!
-//            CreateGroupViewController *sgvc = [[CreateGroupViewController alloc] init];
-//            [self.navigationController pushViewController:sgvc animated:YES];
-//            break;
-//        }
-//        case 3:
-//            [FBSession.activeSession closeAndClearTokenInformation];
-//            LoginViewController *loginViewController = [[LoginViewController alloc] init];
-//            [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
-//            break;
-//            //default:
-//            //  break;
-//    }
-//}
-//
-//- (void)sidebar:(RNFrostedSidebar *)sidebar didEnable:(BOOL)itemEnabled itemAtIndex:(NSUInteger)index {
-//    if (itemEnabled) {
-//        [self.optionIndices addIndex:index];
-//    }
-//    else {
-//        [self.optionIndices removeIndex:index];
-//    }
-//}
+- (void)launchBurger:(id)sender {
+    
+    NSArray *images = @[
+                        [UIImage imageNamed:@"home-icon"],
+                        [UIImage imageNamed:@"create-icon"],
+                        [UIImage imageNamed:@"search-icon"],
+                        [UIImage imageNamed:@"gear"]
+                        ];
+    NSArray *colors = @[
+                        [UIColor colorWithRed:240/255.f green:159/255.f blue:254/255.f alpha:1],
+                        [UIColor colorWithRed:255/255.f green:137/255.f blue:167/255.f alpha:1],
+                        [UIColor colorWithRed:126/255.f green:242/255.f blue:195/255.f alpha:1],
+                        [UIColor colorWithRed:119/255.f green:152/255.f blue:255/255.f alpha:1],
+                        ];
+    
+    
+    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images selectedIndices:self.optionIndices borderColors:colors];
+    
+    //    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
+    callout.delegate = self;
+    
+    //callout.showFromRight = YES;
+    
+    
+    [callout showInViewController:self animated:YES];
+    
+    
+}
+
+- (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
+    NSLog(@"Tapped item at index %i",index);
+    switch (index) {
+        case 0: {
+            //Home
+            CalendarViewController *sgvc = [[CalendarViewController alloc] init];
+            [self.navigationController pushViewController:sgvc animated:YES];
+            break;
+        }
+        case 1: {
+            //Create
+            CreateGroupViewController *sgvc = [[CreateGroupViewController alloc] init];
+            [self.navigationController pushViewController:sgvc animated:YES];
+            break;
+        }
+        case 2: {
+            //Search
+            SearchClassesViewController *svc = [[SearchClassesViewController alloc] init];
+            [self.navigationController pushViewController:svc animated:YES];
+            break;
+        }
+        case 3: {
+            [FBSession.activeSession closeAndClearTokenInformation];
+            LoginViewController *loginViewController = [[LoginViewController alloc] init];
+            [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
+            break;
+        }
+            //default:
+            //  break;
+    }
+    
+}
+
+-(void)test
+{
+    SearchClassesViewController *svc = [[SearchClassesViewController alloc] init];
+    [self.navigationController pushViewController:svc animated:YES];
+}
+
+- (void)sidebar:(RNFrostedSidebar *)sidebar didEnable:(BOOL)itemEnabled itemAtIndex:(NSUInteger)index {
+    if (itemEnabled) {
+        [self.optionIndices addIndex:index];
+    }
+    else {
+        [self.optionIndices removeIndex:index];
+    }
+}
 
 /*
 // Override to support conditional editing of the table view.
