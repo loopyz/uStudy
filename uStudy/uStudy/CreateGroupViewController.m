@@ -256,6 +256,20 @@
     NSString *description = [[@"Studying for " stringByAppendingString:self.classr] stringByAppendingString:@" with uStudy"];
     
     [self createFacebookEvent:self.classr withStartTime:[self.startTimePicker date] andLocation:self.locationTextField.text andDescription:description];
+    
+    // Send text to customer
+    // TODO: de-hardcode this url zomg
+    NSString *urlAsString = [NSString stringWithFormat:@"http://twitterautomate.com/testapp/uStudy.php"];
+    NSURL *url = [[NSURL alloc] initWithString:urlAsString];
+    
+    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url] queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        if (error) {
+            NSLog(@"Error %@; %@", error, [error localizedDescription]);
+        } else {
+            NSLog(@"Twilio'd");
+        }
+    }];
 }
 
 - (NSString *)dateToString: (NSDate *)date

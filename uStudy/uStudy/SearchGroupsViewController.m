@@ -164,7 +164,7 @@
                  event[@"class"] = self.classr;
                  [self.events setObject:event forKey:eventKey];
              }
-             
+             self.tableView.allowsMultipleSelection = YES;
              [self.tableView reloadData];
          }];
         
@@ -248,6 +248,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([self.view isKindOfClass:[UIView class]]) {
+        [self.view removeFromSuperview];
+    }
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
