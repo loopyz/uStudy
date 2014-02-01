@@ -54,7 +54,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 274)/2, 150, 274, 81)];
+    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 230)/2, 150, 229.167, 110)];
     imgView.image = [UIImage imageNamed:@"logo.png"];
     [self.view addSubview:imgView];
     
