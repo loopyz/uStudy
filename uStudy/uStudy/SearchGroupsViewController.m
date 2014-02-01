@@ -81,8 +81,6 @@
     //Initialize the root of our Firebase namespace
     self.firebase = [[Firebase alloc] initWithUrl:firebaseURL];
     
-    self.tableView.rowHeight = 120;
-    
     [self loadAndUpdateGroups];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -224,7 +222,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 120;
+    return 70;
 }
 
 - (void)setupLabel:(UILabel *)label forCell:(UITableViewCell *)cell withText:(NSString*)text {
@@ -299,15 +297,20 @@
     // Number attending label
     NSString *attendees = event[@"attendees"];
     
-    UILabel *numAttendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(145, 50, 100, 40)];
+    UILabel *numAttendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(165, 7, 100, 40)];
     [self setupLabel:numAttendingLabel forCell:cell withText:attendees withSize:28 withAlignment:NSTextAlignmentRight];
     
-    UILabel *numAttendingBar = [[UILabel alloc] initWithFrame:CGRectMake(250, 50, 20, 40)];
-    [self setupLabel:numAttendingBar forCell:cell withText:@"|" withSize:28];
-
     // Attending label
-    UILabel *attendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 70, 120, 40)];
+    UILabel *attendingLabel = [[UILabel alloc] initWithFrame:CGRectMake(235, 35, 120, 40)];
     [self setupLabel:attendingLabel forCell:cell withText:@"attending" withSize:10];
+    
+    // Location label
+    UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, 24, 320, 40)];
+    [self setupLabel:locationLabel forCell:cell withText:@"Location:" withSize:10];
+    
+    //Get location of event
+    UILabel *placeLabel = [[UILabel alloc] initWithFrame:CGRectMake(14, 38, 320, 40)];
+    [self setupLabel:placeLabel forCell:cell withText:@"GHC 3827" withSize:10];
     
     return cell;
     
