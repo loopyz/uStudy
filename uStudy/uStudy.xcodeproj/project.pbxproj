@@ -21,6 +21,7 @@
 		0B2443B8189C621A002EBB59 /* uStudyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2443B7189C621A002EBB59 /* uStudyTests.m */; };
 		0B2443C3189C6229002EBB59 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2443C2189C6229002EBB59 /* LoginViewController.m */; };
 		0B2443C5189C6F68002EBB59 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */; };
+		0BE7F4A8189C936800626FAD /* CollegeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE7F4A7189C936800626FAD /* CollegeViewController.m */; };
 		0BF6C819189C7B6900034D71 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6C818189C7B6900034D71 /* CalendarViewController.m */; };
 		0BF6C81D189C7C0400034D71 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BF6C81C189C7C0400034D71 /* facebook.png */; };
 /* End PBXBuildFile section */
@@ -55,6 +56,8 @@
 		0B2443C1189C6229002EBB59 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0B2443C2189C6229002EBB59 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		0BE7F4A6189C936800626FAD /* CollegeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollegeViewController.h; sourceTree = "<group>"; };
+		0BE7F4A7189C936800626FAD /* CollegeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollegeViewController.m; sourceTree = "<group>"; };
 		0BF6C817189C7B6900034D71 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		0BF6C818189C7B6900034D71 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		0BF6C81C189C7C0400034D71 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 				0B2443A2189C621A002EBB59 /* AppDelegate.m */,
 				0B2443C1189C6229002EBB59 /* LoginViewController.h */,
 				0B2443C2189C6229002EBB59 /* LoginViewController.m */,
+				0BE7F4A6189C936800626FAD /* CollegeViewController.h */,
+				0BE7F4A7189C936800626FAD /* CollegeViewController.m */,
 				0BF6C817189C7B6900034D71 /* CalendarViewController.h */,
 				0BF6C818189C7B6900034D71 /* CalendarViewController.m */,
 				0B2443A4189C621A002EBB59 /* Images.xcassets */,
@@ -277,6 +282,7 @@
 				0B2443A3189C621A002EBB59 /* AppDelegate.m in Sources */,
 				0B24439F189C621A002EBB59 /* main.m in Sources */,
 				0B2443C3189C6229002EBB59 /* LoginViewController.m in Sources */,
+				0BE7F4A8189C936800626FAD /* CollegeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

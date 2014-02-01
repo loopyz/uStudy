@@ -30,7 +30,12 @@
     
     CollegeViewController *temp = [[CollegeViewController alloc] init];
     
-    self.window.rootViewController = lvc;
+    
+    //self.window.rootViewController = lvc;
+    
+    //ANGELA TEST
+    CalendarViewController *cvc = [[CalendarViewController alloc] init];
+    self.window.rootViewController = cvc;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -38,8 +43,8 @@
     // Whenever a person opens the app, check for a cached session
     if (!FORCE_LOGOUT && FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
         // If there's one, just open the session silently, without showing the user the login UI
-        [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
-                                           allowLoginUI:NO
+        [FBSession openActiveSessionWithReadPermissions:@[@"email"]
+                                           allowLoginUI:YES
                                       completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                           // Handler for session state changes
                                           // This method will be called EACH time the session state changes,
