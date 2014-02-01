@@ -13,6 +13,4 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *data;
 
-- (void)loadAndUpdateEvents;
-
 @end

@@ -29,14 +29,20 @@
     
     self.calendarViewController = calendarViewController;
     
-    
-    //self.window.rootViewController = lvc;
-    
-    //ANGELA TEST
-    CalendarViewController *cvc = [[CalendarViewController alloc] init];
-    self.window.rootViewController = cvc;
-    
-    self.window.backgroundColor = [UIColor whiteColor];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:calendarViewController];
+    self.calendarViewController = calendarViewController;
+    self.window.rootViewController = navigationController;
+    self.window.backgroundColor = [UIColor colorWithRed:0.953 green:0.949 blue:0.949 alpha:1.0];
+
+//    // Override point for customization after application launch.
+//    
+//    LoginViewController *lvc = [[LoginViewController alloc] init];
+//    
+//    CollegeViewController *temp = [[CollegeViewController alloc] init];
+//    
+//    self.window.rootViewController = lvc;
+//    
+//    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     if (FORCE_LOGOUT)
@@ -181,7 +187,6 @@
              
              //             CollegeViewController *collegeViewController = [[CollegeViewController alloc] init];
              //[self.CalendarViewController presentViewController:interestsViewController animated:YES completion:^() {
-             [self.calendarViewController loadAndUpdateEvents];
              //}];
          }
      }];

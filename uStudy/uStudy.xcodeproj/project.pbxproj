@@ -22,6 +22,9 @@
 		0B2443C3189C6229002EBB59 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2443C2189C6229002EBB59 /* LoginViewController.m */; };
 		0B2443C5189C6F68002EBB59 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */; };
 		0BE7F4A8189C936800626FAD /* CollegeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE7F4A7189C936800626FAD /* CollegeViewController.m */; };
+		0BE7F4AC189CA8C400626FAD /* college-submit.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4A9189CA8C400626FAD /* college-submit.png */; };
+		0BE7F4AD189CA8C400626FAD /* college.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4AA189CA8C400626FAD /* college.png */; };
+		0BE7F4AE189CA8C400626FAD /* searchbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4AB189CA8C400626FAD /* searchbox.png */; };
 		0BF6C819189C7B6900034D71 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6C818189C7B6900034D71 /* CalendarViewController.m */; };
 		0BF6C81D189C7C0400034D71 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BF6C81C189C7C0400034D71 /* facebook.png */; };
 /* End PBXBuildFile section */
@@ -58,6 +61,9 @@
 		0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		0BE7F4A6189C936800626FAD /* CollegeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollegeViewController.h; sourceTree = "<group>"; };
 		0BE7F4A7189C936800626FAD /* CollegeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollegeViewController.m; sourceTree = "<group>"; };
+		0BE7F4A9189CA8C400626FAD /* college-submit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "college-submit.png"; sourceTree = "<group>"; };
+		0BE7F4AA189CA8C400626FAD /* college.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = college.png; sourceTree = "<group>"; };
+		0BE7F4AB189CA8C400626FAD /* searchbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchbox.png; sourceTree = "<group>"; };
 		0BF6C817189C7B6900034D71 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		0BF6C818189C7B6900034D71 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		0BF6C81C189C7C0400034D71 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
@@ -177,6 +183,9 @@
 		0BF6C81B189C7C0400034D71 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				0BE7F4A9189CA8C400626FAD /* college-submit.png */,
+				0BE7F4AA189CA8C400626FAD /* college.png */,
+				0BE7F4AB189CA8C400626FAD /* searchbox.png */,
 				0BF6C81C189C7C0400034D71 /* facebook.png */,
 			);
 			path = assets;
@@ -258,8 +267,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B24439D189C621A002EBB59 /* InfoPlist.strings in Resources */,
+				0BE7F4AC189CA8C400626FAD /* college-submit.png in Resources */,
 				0BF6C81D189C7C0400034D71 /* facebook.png in Resources */,
+				0BE7F4AE189CA8C400626FAD /* searchbox.png in Resources */,
 				0B2443A5189C621A002EBB59 /* Images.xcassets in Resources */,
+				0BE7F4AD189CA8C400626FAD /* college.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

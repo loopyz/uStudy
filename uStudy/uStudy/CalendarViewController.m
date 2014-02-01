@@ -18,6 +18,13 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        //[self.view setBackgroundColor:[UIColor colorWithRed:0 green:0.655 blue:0.796 alpha:1.0]];
+        
+        CGRect frame = CGRectMake(0.0, 0, self.view.bounds.size.width, self.view.bounds.size.height/2 + 40);
+        UIView *backgroundView = [[UIView alloc] initWithFrame:frame];
+        [backgroundView setBackgroundColor:[UIColor colorWithRed:0 green:0.655 blue:0.796 alpha:1.0]];
+        [self.view addSubview:backgroundView];
+        
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         CGFloat screenWidth = screenRect.size.width;
         CGFloat screenHeight = screenRect.size.height;
@@ -48,15 +55,32 @@
             NSString *weekday = [[dayOfWeek stringFromDate:newDate] substringToIndex:3];
             
             UIButton *calendarCell = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            calendarCell.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            calendarCell.titleLabel.textAlignment = NSTextAlignmentCenter;
+            [calendarCell setBackgroundColor:[UIColor clearColor]];
             
             [calendarCell addTarget:self
                        action:@selector(tapped:)
              forControlEvents:UIControlEventTouchDown];
-            NSString *text = [NSString stringWithFormat:@"%@\n%d", weekday, day];
-            [calendarCell setTitle:text forState:UIControlStateNormal];
-            calendarCell.frame = CGRectMake(margin + cellSize * (i%5), margin * 5 + cellSize * [self getRow:i], cellSize, cellSize);
+            
+            calendarCell.frame = CGRectMake(cellSize * (i%5), margin * 11 + cellSize * [self getRow:i], cellSize, cellSize);
+            
+            UILabel *weekdayLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 4, cellSize, cellSize)];
+            weekdayLabel.lineBreakMode  = NSLineBreakByWordWrapping;
+            weekdayLabel.textAlignment = NSTextAlignmentCenter;
+            [weekdayLabel setBackgroundColor:[UIColor clearColor]];
+            [weekdayLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+            weekdayLabel.text = [NSString stringWithFormat:@"%@", weekday];
+            [weekdayLabel setTextColor:[UIColor whiteColor]];
+            [calendarCell addSubview:weekdayLabel];
+            
+            UILabel *dayOfWeekLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, 25, cellSize, cellSize)];
+            dayOfWeekLabel.lineBreakMode  = NSLineBreakByWordWrapping;
+            dayOfWeekLabel.textAlignment = NSTextAlignmentCenter;
+            [dayOfWeekLabel setBackgroundColor:[UIColor clearColor]];
+            [dayOfWeekLabel setFont:[UIFont fontWithName:@"Helvetica" size:22]];
+            dayOfWeekLabel.text = [NSString stringWithFormat:@"%d", day];
+            [dayOfWeekLabel setTextColor:[UIColor whiteColor]];
+            [calendarCell addSubview:dayOfWeekLabel];
+            
             [self.view addSubview:calendarCell];
             
             [dates addObject:newDate];
@@ -64,11 +88,16 @@
         
         _data = [[NSMutableArray alloc] initWithObjects:@"test1", @"test2", nil];
         
-        int tableYStart = margin * 6 + cellSize * 4;
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(margin, tableYStart, screenWidth-margin*2, screenHeight-tableYStart)
+        int tableYStart = margin * 14 + cellSize * 4;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, tableYStart, screenWidth, screenHeight-tableYStart)
                                                   style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        _tableView.tableHeaderView = nil;
+        
+        /*UIView* bgView = [[UIView alloc] init];
+        bgView.backgroundColor = [UIColor colorWithRed:0 green:0.655 blue:0.796 alpha:1.0];
+        [_tableView setBackgroundView:bgView];*/
         
         [self.view addSubview:_tableView];
     }
@@ -121,6 +150,7 @@
     }
     cell.textLabel.text = [_data objectAtIndex:indexPath.row];
     cell.detailTextLabel.text = @"detailtextlabel";
+    [cell setBackgroundColor:[UIColor clearColor]];
     //NSString *path = [[NSBundle mainBundle] pathForResource:[item objectForKey:@"imageKey"] ofType:@"png"];
     //UIImage *theImage = [UIImage imageWithContentsOfFile:path];
     //cell.imageView.image = theImage;
@@ -133,5 +163,6 @@
 {
     // handle table view selection
 }
+
 
 @end
