@@ -228,10 +228,12 @@
             //Gameify!
             break;
         case 3:
-            //Logout!
+            [FBSession.activeSession closeAndClearTokenInformation];
+            LoginViewController *loginViewController = [[LoginViewController alloc] init];
+            [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
             break;
-        default:
-            break;
+        //default:
+          //  break;
     }
 }
 
