@@ -25,6 +25,20 @@
 		0BE7F4AC189CA8C400626FAD /* college-submit.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4A9189CA8C400626FAD /* college-submit.png */; };
 		0BE7F4AD189CA8C400626FAD /* college.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4AA189CA8C400626FAD /* college.png */; };
 		0BE7F4AE189CA8C400626FAD /* searchbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4AB189CA8C400626FAD /* searchbox.png */; };
+		0BE7F4B0189CC93F00626FAD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE7F4AF189CC93F00626FAD /* QuartzCore.framework */; };
+		0BE7F4B2189CC94800626FAD /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE7F4B1189CC94800626FAD /* Accelerate.framework */; };
+		0BE7F4B5189CC95E00626FAD /* RNFrostedSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE7F4B4189CC95E00626FAD /* RNFrostedSidebar.m */; };
+		0BE7F4B8189CC9C400626FAD /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE7F4B7189CC9C400626FAD /* SearchViewController.m */; };
+		0BE7F4C3189CCD9500626FAD /* burger.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4B9189CCD9500626FAD /* burger.png */; };
+		0BE7F4C4189CCD9500626FAD /* burger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4BA189CCD9500626FAD /* burger@2x.png */; };
+		0BE7F4C5189CCD9500626FAD /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4BB189CCD9500626FAD /* gear.png */; };
+		0BE7F4C6189CCD9500626FAD /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4BC189CCD9500626FAD /* gear@2x.png */; };
+		0BE7F4C7189CCD9500626FAD /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4BD189CCD9500626FAD /* globe.png */; };
+		0BE7F4C8189CCD9500626FAD /* globe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4BE189CCD9500626FAD /* globe@2x.png */; };
+		0BE7F4C9189CCD9500626FAD /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4BF189CCD9500626FAD /* profile.png */; };
+		0BE7F4CA189CCD9500626FAD /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4C0189CCD9500626FAD /* profile@2x.png */; };
+		0BE7F4CB189CCD9500626FAD /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4C1189CCD9500626FAD /* star.png */; };
+		0BE7F4CC189CCD9500626FAD /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BE7F4C2189CCD9500626FAD /* star@2x.png */; };
 		0BF6C819189C7B6900034D71 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6C818189C7B6900034D71 /* CalendarViewController.m */; };
 		0BF6C81D189C7C0400034D71 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BF6C81C189C7C0400034D71 /* facebook.png */; };
 /* End PBXBuildFile section */
@@ -64,6 +78,22 @@
 		0BE7F4A9189CA8C400626FAD /* college-submit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "college-submit.png"; sourceTree = "<group>"; };
 		0BE7F4AA189CA8C400626FAD /* college.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = college.png; sourceTree = "<group>"; };
 		0BE7F4AB189CA8C400626FAD /* searchbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchbox.png; sourceTree = "<group>"; };
+		0BE7F4AF189CC93F00626FAD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0BE7F4B1189CC94800626FAD /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		0BE7F4B3189CC95E00626FAD /* RNFrostedSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNFrostedSidebar.h; sourceTree = "<group>"; };
+		0BE7F4B4189CC95E00626FAD /* RNFrostedSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFrostedSidebar.m; sourceTree = "<group>"; };
+		0BE7F4B6189CC9C400626FAD /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		0BE7F4B7189CC9C400626FAD /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		0BE7F4B9189CCD9500626FAD /* burger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = burger.png; sourceTree = "<group>"; };
+		0BE7F4BA189CCD9500626FAD /* burger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "burger@2x.png"; sourceTree = "<group>"; };
+		0BE7F4BB189CCD9500626FAD /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
+		0BE7F4BC189CCD9500626FAD /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear@2x.png"; sourceTree = "<group>"; };
+		0BE7F4BD189CCD9500626FAD /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe.png; sourceTree = "<group>"; };
+		0BE7F4BE189CCD9500626FAD /* globe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "globe@2x.png"; sourceTree = "<group>"; };
+		0BE7F4BF189CCD9500626FAD /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
+		0BE7F4C0189CCD9500626FAD /* profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile@2x.png"; sourceTree = "<group>"; };
+		0BE7F4C1189CCD9500626FAD /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		0BE7F4C2189CCD9500626FAD /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
 		0BF6C817189C7B6900034D71 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		0BF6C818189C7B6900034D71 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		0BF6C81C189C7C0400034D71 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
@@ -74,6 +104,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BE7F4B2189CC94800626FAD /* Accelerate.framework in Frameworks */,
+				0BE7F4B0189CC93F00626FAD /* QuartzCore.framework in Frameworks */,
 				0B2443C5189C6F68002EBB59 /* FacebookSDK.framework in Frameworks */,
 				0B244395189C621A002EBB59 /* CoreGraphics.framework in Frameworks */,
 				0B244397189C621A002EBB59 /* UIKit.framework in Frameworks */,
@@ -116,6 +148,8 @@
 		0B244391189C621A002EBB59 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0BE7F4B1189CC94800626FAD /* Accelerate.framework */,
+				0BE7F4AF189CC93F00626FAD /* QuartzCore.framework */,
 				0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */,
 				0B244392189C621A002EBB59 /* Foundation.framework */,
 				0B244394189C621A002EBB59 /* CoreGraphics.framework */,
@@ -136,6 +170,10 @@
 				0BE7F4A7189C936800626FAD /* CollegeViewController.m */,
 				0BF6C817189C7B6900034D71 /* CalendarViewController.h */,
 				0BF6C818189C7B6900034D71 /* CalendarViewController.m */,
+				0BE7F4B3189CC95E00626FAD /* RNFrostedSidebar.h */,
+				0BE7F4B4189CC95E00626FAD /* RNFrostedSidebar.m */,
+				0BE7F4B6189CC9C400626FAD /* SearchViewController.h */,
+				0BE7F4B7189CC9C400626FAD /* SearchViewController.m */,
 				0B2443A4189C621A002EBB59 /* Images.xcassets */,
 				0BF6C81A189C7C0400034D71 /* images */,
 				0B244399189C621A002EBB59 /* Supporting Files */,
@@ -183,6 +221,16 @@
 		0BF6C81B189C7C0400034D71 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				0BE7F4B9189CCD9500626FAD /* burger.png */,
+				0BE7F4BA189CCD9500626FAD /* burger@2x.png */,
+				0BE7F4BB189CCD9500626FAD /* gear.png */,
+				0BE7F4BC189CCD9500626FAD /* gear@2x.png */,
+				0BE7F4BD189CCD9500626FAD /* globe.png */,
+				0BE7F4BE189CCD9500626FAD /* globe@2x.png */,
+				0BE7F4BF189CCD9500626FAD /* profile.png */,
+				0BE7F4C0189CCD9500626FAD /* profile@2x.png */,
+				0BE7F4C1189CCD9500626FAD /* star.png */,
+				0BE7F4C2189CCD9500626FAD /* star@2x.png */,
 				0BE7F4A9189CA8C400626FAD /* college-submit.png */,
 				0BE7F4AA189CA8C400626FAD /* college.png */,
 				0BE7F4AB189CA8C400626FAD /* searchbox.png */,
@@ -266,9 +314,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BE7F4C9189CCD9500626FAD /* profile.png in Resources */,
 				0B24439D189C621A002EBB59 /* InfoPlist.strings in Resources */,
+				0BE7F4CC189CCD9500626FAD /* star@2x.png in Resources */,
+				0BE7F4CA189CCD9500626FAD /* profile@2x.png in Resources */,
+				0BE7F4C7189CCD9500626FAD /* globe.png in Resources */,
+				0BE7F4C4189CCD9500626FAD /* burger@2x.png in Resources */,
+				0BE7F4C5189CCD9500626FAD /* gear.png in Resources */,
+				0BE7F4C6189CCD9500626FAD /* gear@2x.png in Resources */,
 				0BE7F4AC189CA8C400626FAD /* college-submit.png in Resources */,
+				0BE7F4C8189CCD9500626FAD /* globe@2x.png in Resources */,
 				0BF6C81D189C7C0400034D71 /* facebook.png in Resources */,
+				0BE7F4C3189CCD9500626FAD /* burger.png in Resources */,
+				0BE7F4CB189CCD9500626FAD /* star.png in Resources */,
 				0BE7F4AE189CA8C400626FAD /* searchbox.png in Resources */,
 				0B2443A5189C621A002EBB59 /* Images.xcassets in Resources */,
 				0BE7F4AD189CA8C400626FAD /* college.png in Resources */,
@@ -292,9 +350,11 @@
 			files = (
 				0BF6C819189C7B6900034D71 /* CalendarViewController.m in Sources */,
 				0B2443A3189C621A002EBB59 /* AppDelegate.m in Sources */,
+				0BE7F4B5189CC95E00626FAD /* RNFrostedSidebar.m in Sources */,
 				0B24439F189C621A002EBB59 /* main.m in Sources */,
 				0B2443C3189C6229002EBB59 /* LoginViewController.m in Sources */,
 				0BE7F4A8189C936800626FAD /* CollegeViewController.m in Sources */,
+				0BE7F4B8189CC9C400626FAD /* SearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

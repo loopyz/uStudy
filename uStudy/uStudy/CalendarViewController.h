@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface CalendarViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+#import "RNFrostedSidebar.h"
+@interface CalendarViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, RNFrostedSidebarDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *data;
