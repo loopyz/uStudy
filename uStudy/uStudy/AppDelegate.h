@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) LoginViewController *loginViewController;
+@property (strong, nonatomic) CalendarViewController *calendarViewController;
 
 @property (strong, nonatomic) UINavigationController *navigationController;
 @property (strong, nonatomic) NSString *username;

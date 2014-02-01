@@ -10,6 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
 #import "CollegeViewController.h"
+#import "CalendarViewController.h"
 
 @implementation AppDelegate
 
@@ -21,12 +22,13 @@
     
     LoginViewController *loginViewController = [[LoginViewController alloc] init];
     
+    
     self.loginViewController = loginViewController;
     // Override point for customization after application launch.
     
     LoginViewController *lvc = [[LoginViewController alloc] init];
     
-    //CollegeViewController *temp = [[CollegeViewController alloc] init];
+    CollegeViewController *temp = [[CollegeViewController alloc] init];
     
     self.window.rootViewController = lvc;
     
@@ -158,15 +160,19 @@
          if ([self.loginViewController isViewLoaded])
          {
              [self.loginViewController dismissViewControllerAnimated:YES completion:^() {
-                 CollegeViewController *interestsViewController = [[CollegeViewController alloc] init];
-//                 [self.eventListViewController presentViewController:interestsViewController animated:YES completion:^() {
+                 CollegeViewController *collegeViewController = [[CollegeViewController alloc] init];
+            
+                 [self.calendarViewController presentViewController: collegeViewController animated:YES completion:^() {
+                     //add stuff
+                 }];
+//                 [self.CalendarViewController presentViewController:CollegeViewController animated:YES completion:^() {
 //                     [self.eventListViewController loadAndUpdateEvents];
 //                 }];
              }];
          } else {
              //loads calendar after
              
-             CollegeViewController *collegeViewController = [[CollegeViewController alloc] init];
+             //             CollegeViewController *collegeViewController = [[CollegeViewController alloc] init];
              //[self.CalendarViewController presentViewController:interestsViewController animated:YES completion:^() {
              //[self.CalendarViewController loadAndUpdateEvents];
              //}];
