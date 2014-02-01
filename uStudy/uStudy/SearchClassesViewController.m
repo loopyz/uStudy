@@ -30,9 +30,11 @@
 {
     self = [super initWithStyle:style];
     if (self) {
+        self.count = 0;
+        self.rectangles = @[@"white-rect.png", @"light-green-rect.png", @"orange-rect.png", @"pink-rect.png", @"green-rect.png"];
         // Custom initialization
-        //self.tableView.separatorColor = [UIColor clearColor];
-        //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.tableView.separatorColor = [UIColor clearColor];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         //[self initNavBarItems];
         [self addBackgroundImage];
@@ -48,6 +50,7 @@
     NSArray* bgs = @[@"white-rect.png", @"light-green-rect.png", @"orange-rect.png", @"pink-rect.png", @"green-rect.png"];
     
     return [UIImage imageNamed:bgs[arc4random() % [bgs count]]];
+    //return [UIImage imageNamed:@"white-rect.png"];
 }
 
 - (void)initNavBarItems
@@ -145,7 +148,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 120;
+    return 70;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -156,10 +159,15 @@
     
     // Configure the cell...
     if (cell == nil) {
+        NSLog(@"here in if statement");
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        [cell setBackgroundColor:[UIColor clearColor]];
+        NSLog(@"never completed if statement :(");
     } else
     {
+        [cell setBackgroundColor:[UIColor clearColor]];
         // Clear old labels
+        NSLog(@"here in else statement");
         for (UIView *v in cell.subviews) {
             if ([v isKindOfClass:[UILabel class]])
                 [v removeFromSuperview];
@@ -168,6 +176,7 @@
     
     //gets class name
     NSString *class = [self.classes objectAtIndex:indexPath.row];
+    NSLog(class);
     
     //update cell name and description
     if(!class)
@@ -176,23 +185,35 @@
         return cell;
     }
     
-    UIImage *bgRect = [[UIImage alloc] initWithData:[self randomRectangle]];
-    cell.backgroundView = [[UIImageView alloc] initWithImage: bgRect];
-    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage: bgRect];
+    
+    UIImage *bgRect = [UIImage imageNamed:[self.rectangles objectAtIndex:self.count%5]];
+    self.count++;
+    
+    cell.backgroundView = [[UIImageView alloc] initWithImage: [bgRect stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0]];
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage: [bgRect stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0]];
     
     //Class Title Label
-    UILabel *classLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 320, 40)];
-    int size = 22;
-    int length = [class length];
+    UILabel *classLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 16, 120, 40)];
+    //int size = 22;
+    //int length = [class length];
     
     //shorted class string
-    NSRange stringRange = {0, MIN([class length], 20)};
+    NSRange stringRange = {0, MIN([class length], 35)};
     // adjust the range to include dependent chars
     stringRange = [class rangeOfComposedCharacterSequencesForRange:stringRange];
     // Now you can create the short string
     NSString *shortString = [class substringWithRange:stringRange];
     
-    [self setupLabel:classLabel forCell:cell withText:class withSize: 12];
+    [self setupLabel:classLabel forCell:cell withText:shortString withSize: 23];
+    
+    //bar separator label
+    UILabel *barSeparator = [[UILabel alloc] initWithFrame:CGRectMake(100, 13, 120, 40)];
+    [self setupBarLabel:barSeparator forCell:cell withText:@"|" withSize:32];
+    
+    //class name label: TODO GET FROM FIREBASEEE :P
+    UILabel *className = [[UILabel alloc] initWithFrame:CGRectMake(115, 15, 190, 40)];
+    [self setupLabel:className forCell:cell withText:@"Introduction to Computer Systems" withSize:12];
+    
     
     return cell;
     
@@ -222,11 +243,23 @@
 
 - (void)setupLabel:(UILabel *)label forCell:(UITableViewCell *)cell withText:(NSString*)text
           withSize:(int)size withAlignment:(NSTextAlignment)textAlignment {
-    label.font = [UIFont systemFontOfSize:size];
+    
+    //incorrectLabel.frame = CGRectMake(0, 0, self.view.bounds.size.width, 520);
+    label.font = [UIFont fontWithName:@"Futura-Medium" size:size];
     label.textColor = [UIColor whiteColor];
     label.textAlignment = textAlignment;
     [label setText:text];
     [cell.contentView addSubview:label];
+}
+
+- (void)setupBarLabel:(UILabel *)label forCell:(UITableViewCell *)cell withText:(NSString*)text withSize:(int)size
+{
+    label.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:size];
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentLeft;
+    [label setText:text];
+    [cell.contentView addSubview:label];
+    
 }
 
 /*

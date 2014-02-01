@@ -31,8 +31,8 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        //self.tableView.separatorColor = [UIColor clearColor];
-        //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.tableView.separatorColor = [UIColor clearColor];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         //[self initNavBarItems];
         [self addBackgroundImage];
@@ -119,6 +119,7 @@
 - (void)addBackgroundImage
 {
     UIGraphicsBeginImageContext(self.view.frame.size);
+    
     [[UIImage imageNamed:@"stone-bg.png"] drawInRect:self.view.bounds];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

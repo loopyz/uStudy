@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Angela Zhang. All rights reserved.
 //
 
-#define FORCE_LOGOUT true
+#define FORCE_LOGOUT false
 #import <FacebookSDK/FacebookSDK.h>
 #import <Firebase/Firebase.h>
 #import "AppDelegate.h"
