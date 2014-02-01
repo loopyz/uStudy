@@ -334,6 +334,20 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+// Allow deleting of rows by swipe
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    NSString* eventKey = [self.eventKeys objectAtIndex:indexPath.row];
+//    
+//    [self.events[eventKey][@"ref"] removeValue];
+//    [self.events removeObjectForKey:eventKey];
+//    [self.eventKeys removeObject:eventKey];
+//    
+//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    
+//    [self.tableView reloadData];
+//}
+
 
 // Allow deleting of rows by swipe
 //- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

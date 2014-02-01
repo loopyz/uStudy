@@ -31,7 +31,7 @@
     
     self.calendarViewController = calendarViewController;
     
-    CreateGroupViewController *cg = [CreateGroupViewController alloc];
+  //  CreateGroupViewController *cg = [CreateGroupViewController alloc];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:calendarViewController];
     self.navigationController = navigationController;
     self.calendarViewController = calendarViewController;

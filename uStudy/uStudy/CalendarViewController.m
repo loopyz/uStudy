@@ -130,20 +130,23 @@
         [self.view addSubview:_tableView];
         
         //Hamburger menu!
-        UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"burger.png"] style:UIBarButtonItemStylePlain target:self action:@selector(launchBurger:)];
+        UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"burger.png"] style:UIBarButtonItemStylePlain target:self action:@selector(test)];
+        
+        hamburger.tintColor = [UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1.0];
         
         self.navigationItem.leftBarButtonItem = hamburger;
         
-        NSArray *images = @[
-                            [UIImage imageNamed:@"gear"],
-                            [UIImage imageNamed:@"search-icon"],
-                            [UIImage imageNamed:@"create-icon"],
-                            [UIImage imageNamed:@"star"]
-                            ];
         
-        RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
-        callout.delegate = self;
-        [callout show];
+//        NSArray *images = @[
+//                            [UIImage imageNamed:@"gear"],
+//                            [UIImage imageNamed:@"search-icon"],
+//                            [UIImage imageNamed:@"create-icon"],
+//                            [UIImage imageNamed:@"star"]
+//                            ];
+//        
+//        RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
+//        callout.delegate = self;
+//        [callout show];
         
         //logo
         /* Setting up navigation bar items */
@@ -241,53 +244,59 @@
 
 #pragma mark - RNFrostedSidebarDelegate
 
-- (void)launchBurger:(id)sender {
-    NSArray *images = @[
-                        [UIImage imageNamed:@"gear"],
-                        [UIImage imageNamed:@"search-icon"],
-                        [UIImage imageNamed:@"create-icon"],
-                        [UIImage imageNamed:@"star"]
-                        ];
-    NSArray *colors = @[
-                        [UIColor colorWithRed:240/255.f green:159/255.f blue:254/255.f alpha:1],
-                        [UIColor colorWithRed:255/255.f green:137/255.f blue:167/255.f alpha:1],
-                        [UIColor colorWithRed:126/255.f green:242/255.f blue:195/255.f alpha:1],
-                        [UIColor colorWithRed:119/255.f green:152/255.f blue:255/255.f alpha:1],
-                        ];
-    
-    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images selectedIndices:self.optionIndices borderColors:colors];
-    //    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
-    callout.delegate = self;
-    //    callout.showFromRight = YES;
-    [callout show];
-}
+//- (void)launchBurger:(id)sender {
+//    NSArray *images = @[
+//                        [UIImage imageNamed:@"gear"],
+//                        [UIImage imageNamed:@"search-icon"],
+//                        [UIImage imageNamed:@"create-icon"],
+//                        [UIImage imageNamed:@"star"]
+//                        ];
+//    NSArray *colors = @[
+//                        [UIColor colorWithRed:240/255.f green:159/255.f blue:254/255.f alpha:1],
+//                        [UIColor colorWithRed:255/255.f green:137/255.f blue:167/255.f alpha:1],
+//                        [UIColor colorWithRed:126/255.f green:242/255.f blue:195/255.f alpha:1],
+//                        [UIColor colorWithRed:119/255.f green:152/255.f blue:255/255.f alpha:1],
+//                        ];
+//    
+//    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images selectedIndices:self.optionIndices borderColors:colors];
+//    //    RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
+//    callout.delegate = self;
+//    //    callout.showFromRight = YES;
+//    [callout show];
+//}
+//
+//- (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
+//    NSLog(@"Tapped item at index %i",index);
+//    switch (index) {
+//        case 0:
+//            //Create
+//            break;
+//        case 1: {
+//            //Search
+//            SearchClassesViewController *svc = [[SearchClassesViewController alloc] init];
+//            [self.navigationController pushViewController:svc animated:YES];
+//            break;
+//        }
+//        case 2: {
+//            //Gameify!
+//            CreateGroupViewController *sgvc = [[CreateGroupViewController alloc] init];
+//            [self.navigationController pushViewController:sgvc animated:YES];
+//            break;
+//        }
+//        case 3:
+//            [FBSession.activeSession closeAndClearTokenInformation];
+//            LoginViewController *loginViewController = [[LoginViewController alloc] init];
+//            [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
+//            break;
+//        //default:
+//          //  break;
+//    }
+//}
 
-- (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
-    NSLog(@"Tapped item at index %i",index);
-    switch (index) {
-        case 0:
-            //Create
-            break;
-        case 1: {
-            //Search
-            SearchClassesViewController *svc = [[SearchClassesViewController alloc] init];
-            [self.navigationController pushViewController:svc animated:YES];
-            break;
-        }
-        case 2: {
-            //Gameify!
-            CreateGroupViewController *sgvc = [[CreateGroupViewController alloc] init];
-            [self.navigationController pushViewController:sgvc animated:YES];
-            break;
-        }
-        case 3:
-            [FBSession.activeSession closeAndClearTokenInformation];
-            LoginViewController *loginViewController = [[LoginViewController alloc] init];
-            [self.navigationController presentViewController:loginViewController animated:YES completion:NULL];
-            break;
-        //default:
-          //  break;
-    }
+-(void)test
+{
+    SearchClassesViewController *svc = [[SearchClassesViewController alloc] init];
+    [self.navigationController pushViewController:svc animated:YES];
 }
 
 - (void)sidebar:(RNFrostedSidebar *)sidebar didEnable:(BOOL)itemEnabled itemAtIndex:(NSUInteger)index {
@@ -298,5 +307,6 @@
         [self.optionIndices removeIndex:index];
     }
 }
+
 
 @end
