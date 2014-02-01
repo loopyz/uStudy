@@ -9,6 +9,8 @@
 #import "CalendarViewController.h"
 #import "SearchClassesViewController.h"
 
+#import <Firebase/Firebase.h>
+
 @interface CalendarViewController ()
 @property (nonatomic, strong) NSMutableIndexSet *optionIndices;
 @end
@@ -145,6 +147,17 @@
     
     //TODO: at this point query firebase using date (which has format 'Mon\n17' [example]) to get events for given day
     //then set items that get returned from that as the items in the NSMutableArray _data
+    /*Firebase *userRefs = [[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users/633454537"];
+    [userRefs observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot){
+        if (snapshot.value == [NSNull null]) {
+            NSLog(@"User doesn't exist");
+        } else {
+            Firebase *eventsRefs = [userRefs childByAppendingPath:@"events"];
+            [eventsRefs observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+                [_data addObject:snapshot.name];
+            }];
+        }
+    }];*/
 }
 
 - (void)viewDidLoad
