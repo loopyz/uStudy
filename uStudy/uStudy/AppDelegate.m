@@ -25,13 +25,7 @@
     
     LoginViewController *lvc = [[LoginViewController alloc] init];
     
-    //ANGELA TESTING
-    CalendarViewController *cvc = [[CalendarViewController alloc] init];
-    self.window.rootViewController = cvc;
-    
-    //END ANGELA TESTING
-    
-    //self.window.rootViewController = lvc;
+    self.window.rootViewController = lvc;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

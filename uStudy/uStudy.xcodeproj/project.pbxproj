@@ -22,6 +22,7 @@
 		0B2443C3189C6229002EBB59 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2443C2189C6229002EBB59 /* LoginViewController.m */; };
 		0B2443C5189C6F68002EBB59 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */; };
 		0BF6C819189C7B6900034D71 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF6C818189C7B6900034D71 /* CalendarViewController.m */; };
+		0BF6C81D189C7C0400034D71 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BF6C81C189C7C0400034D71 /* facebook.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		0B2443C4189C6F68002EBB59 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		0BF6C817189C7B6900034D71 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		0BF6C818189C7B6900034D71 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		0BF6C81C189C7C0400034D71 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				0BF6C817189C7B6900034D71 /* CalendarViewController.h */,
 				0BF6C818189C7B6900034D71 /* CalendarViewController.m */,
 				0B2443A4189C621A002EBB59 /* Images.xcassets */,
+				0BF6C81A189C7C0400034D71 /* images */,
 				0B244399189C621A002EBB59 /* Supporting Files */,
 			);
 			path = uStudy;
@@ -156,6 +159,22 @@
 				0B2443B4189C621A002EBB59 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0BF6C81A189C7C0400034D71 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				0BF6C81B189C7C0400034D71 /* assets */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		0BF6C81B189C7C0400034D71 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				0BF6C81C189C7C0400034D71 /* facebook.png */,
+			);
+			path = assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B24439D189C621A002EBB59 /* InfoPlist.strings in Resources */,
+				0BF6C81D189C7C0400034D71 /* facebook.png in Resources */,
 				0B2443A5189C621A002EBB59 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
