@@ -204,17 +204,21 @@
 - (void) addNewGroup
 {
     NSLog(@"Added new group");
-    NSString *description = [NSString stringWithFormat:@"Studying for %s with %s at uStudy!", self.classr, self.groupName];
     
-    [self createFacebookEvent:self.groupName withStartTime:[self.startTimePicker date] andLocation:self.locationTextField.text andDescription:description];
+    NSString *description = [[@"Studying for " stringByAppendingString:self.classr] stringByAppendingString:@" with uStudy"];
+    
+    [self createFacebookEvent:self.classr withStartTime:[self.startTimePicker date] andLocation:self.locationTextField.text andDescription:description];
 }
 
 - (NSString *)dateToString: (NSDate *)date
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
-    [formatter setDateFormat:@"MM/dd - hh:mm"];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ'"];
     return [formatter stringFromDate:date];
+    //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    //[formatter setDateFormat:@"MM/dd - hh:mm"];
+    //return [formatter stringFromDate:date];
 }
 
 -(void)createFacebookEvent:(NSString *)name withStartTime:(NSDate *)sdate andLocation:(NSString *)location andDescription:(NSString *)description {
@@ -224,13 +228,15 @@
                             location,@"location",
                             description,@"description",
                             nil];
-    
+    NSLog(description);
     [FBRequestConnection startWithGraphPath:@"me/events"
                          parameters:params
                          HTTPMethod:@"POST"
                           completionHandler:^(FBRequestConnection *connection,id result, NSError *error) {
                               AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                              //NSLog(result);
                               if (!error && result) {
+                                  NSLog(@"done");
                                   NSString *username = appDelegate.username;
                                   Firebase *eventUserRef = [[[[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users/"] childByAppendingPath:username] childByAppendingPath:@"events"];
                                   Firebase *eventClassRef = [[[[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/classes"] childByAppendingPath:self.classr] childByAppendingPath:@"events"];

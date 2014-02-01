@@ -106,7 +106,7 @@
 {
    AppDelegate* appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    NSString *username = @"633454537";//appDelegate.username;
+    NSString *username = appDelegate.username;
     
     Firebase *classesRef = [[[self.firebase childByAppendingPath:@"users"] childByAppendingPath:username] childByAppendingPath:@"classes"];
     

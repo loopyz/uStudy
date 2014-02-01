@@ -33,8 +33,10 @@
     
     if (self != nil) {
         //lol
-        self.tableView.separatorColor = [UIColor clearColor];
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.classr = derp;
+        //self.tableView.separatorColor = [UIColor clearColor];
+        //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
         
         [self addBackgroundImage];
         
@@ -94,16 +96,16 @@
 {
     AppDelegate* appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    NSString *username = @"633454537";//appDelegate.username;
+    NSString *username = appDelegate.username;
     
     Firebase* eventsRef = [[self.firebase childByAppendingPath:@"classes"]
                            childByAppendingPath:self.classr];
 
     [eventsRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-        NSString* eventKey = snapshot.value;
-        NSLog(@"Event ID added: %@", eventKey);
-        [self.eventKeys addObject:eventKey];
-        
+        self.eventKeys = [[snapshot.value allValues] mutableCopy];
+        //NSLog(@"Event ID added: %@", eventKey);
+        //[self.eventKeys addObject:eventKey];
+        for (NSString *eventKey in eventKeys) {
         __block NSMutableDictionary* event = [[NSMutableDictionary alloc] init];
         
         // Retrieve event from Facebook
@@ -172,6 +174,7 @@
          }];
         
         [connection start];
+        }
     }];
     
     [eventsRef observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {

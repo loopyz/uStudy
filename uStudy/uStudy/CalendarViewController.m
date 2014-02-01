@@ -136,8 +136,8 @@
         
         NSArray *images = @[
                             [UIImage imageNamed:@"gear"],
-                            [UIImage imageNamed:@"globe"],
-                            [UIImage imageNamed:@"profile"],
+                            [UIImage imageNamed:@"search-icon"],
+                            [UIImage imageNamed:@"create-icon"],
                             [UIImage imageNamed:@"star"]
                             ];
         
@@ -243,10 +243,10 @@
 
 - (void)launchBurger:(id)sender {
     NSArray *images = @[
-                        [UIImage imageNamed:@"star"],
-                        [UIImage imageNamed:@"globe"],
-                        [UIImage imageNamed:@"profile"],
                         [UIImage imageNamed:@"gear"],
+                        [UIImage imageNamed:@"search-icon"],
+                        [UIImage imageNamed:@"create-icon"],
+                        [UIImage imageNamed:@"star"]
                         ];
     NSArray *colors = @[
                         [UIColor colorWithRed:240/255.f green:159/255.f blue:254/255.f alpha:1],
