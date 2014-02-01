@@ -8,7 +8,7 @@
 
 #import "CollegeViewController.h"
 
-@interface CollegeViewController ()
+@interface CollegeViewController () <UITextFieldDelegate>
 
 @end
 
@@ -23,9 +23,8 @@
         [self addAttendingLabel];
         [self addCurrentCollegeLabel];
         [self addIncorrectLabel];
-        
-        //can't figure out how to add searchbox :(
-        //[self addSearchBox];
+        [self addSearchBox];
+        [self addSubmitButton];
     }
     return self;
 }
@@ -111,16 +110,60 @@
 
 - (void)addSearchBox
 {
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 200, 300, 40)];
+    UIImage *textBG = [UIImage imageNamed:@"searchbox.png"];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 320, 300, 40)];
     textField.borderStyle = UITextBorderStyleRoundedRect;
     textField.font = [UIFont systemFontOfSize:15];
-    textField.placeholder = @"enter text";
+    textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"search" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    textField.textColor = [UIColor whiteColor];
+    
+    //set padding
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    textField.leftView = paddingView;
+    textField.leftViewMode = UITextFieldViewModeAlways;
+
+    
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
     textField.keyboardType = UIKeyboardTypeDefault;
     textField.returnKeyType = UIReturnKeyDone;
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    textField.borderStyle = UITextBorderStyleNone;
+    [textField setBackground:textBG];
+    textField.delegate = self;
     [self.view addSubview:textField];
+}
+
+- (void)addSubmitButton
+{
+    UIImage *buttonImage = [UIImage imageNamed:@"college-submit.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button addTarget:self action:@selector(didFinishChoosing) forControlEvents:UIControlEventTouchDown];
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 500, 320, 50);
+    [self.view addSubview:button];
+    
+}
+
+- (void)didFinishChoosing
+{
+//    AppDelegate* appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    NSString* username = appDelegate.username;
+//    
+//    Firebase* usersRef = [[Firebase alloc] initWithUrl:@"https://uStudy.firebaseio.com/users"];
+//    Firebase* interestsRef = [[usersRef childByAppendingPath:username] childByAppendingPath:@"college"];
+//    
+//    
+//    [self dismissViewControllerAnimated:YES completion:^() {
+//        
+//    }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    //go to next view :P
+    return false;
 }
 
 - (void)viewDidLoad
