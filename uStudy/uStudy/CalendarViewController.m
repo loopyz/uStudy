@@ -22,7 +22,15 @@
         
         CGRect frame = CGRectMake(0.0, 0, self.view.bounds.size.width, self.view.bounds.size.height/2 + 40);
         UIView *backgroundView = [[UIView alloc] initWithFrame:frame];
-        [backgroundView setBackgroundColor:[UIColor colorWithRed:0 green:0.655 blue:0.796 alpha:1.0]];
+//        [backgroundView setBackgroundColor:[UIColor colorWithRed:0 green:0.655 blue:0.796 alpha:1.0]];
+        
+        //gradient background
+        UIGraphicsBeginImageContext(self.view.frame.size);
+        [[UIImage imageNamed:@"calendar-bg-3.png"] drawInRect:self.view.bounds];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+        
         [self.view addSubview:backgroundView];
         
         CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -94,7 +102,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.tableHeaderView = nil;
-        
+                
         /*UIView* bgView = [[UIView alloc] init];
         bgView.backgroundColor = [UIColor colorWithRed:0 green:0.655 blue:0.796 alpha:1.0];
         [_tableView setBackgroundView:bgView];*/
