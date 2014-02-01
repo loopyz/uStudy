@@ -17,10 +17,10 @@
 @property (strong, nonatomic) UILabel *locationLabel;
 @property (strong, nonatomic) UITextField *locationTextField;
 
-@property (strong, nonatomic) UIButton *startTimeButton;
+@property (strong, nonatomic) UILabel *startTimeLabel;
 @property (strong, nonatomic) UIDatePicker *startTimePicker;
 
-@property (strong, nonatomic) UIButton *endTimeButton;
-@property (strong, nonatomic) UIDatePicker *endTimePicker;
+@property (strong, nonatomic) NSString *classr;
+@property (strong, nonatomic) NSString *groupName;
 
 @end

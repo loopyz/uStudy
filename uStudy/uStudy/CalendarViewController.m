@@ -8,6 +8,7 @@
 
 #import "CalendarViewController.h"
 #import "SearchClassesViewController.h"
+#import "SearchGroupsViewController.h"
 #import "CreateGroupViewController.h"
 
 #import <Firebase/Firebase.h>

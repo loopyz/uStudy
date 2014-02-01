@@ -96,7 +96,7 @@
     
     NSString *username = @"633454537";//appDelegate.username;
     
-    Firebase* eventsRef = [[self.firebase childByAppendingPath:@"events"]
+    Firebase* eventsRef = [[self.firebase childByAppendingPath:@"classes"]
                            childByAppendingPath:self.classr];
 
     [eventsRef observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
@@ -124,7 +124,7 @@
              // Store formatted date and time
              NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
              NSString *input = event[@"start_time"];
-             [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZ"]; //iso 8601 format
+             [dateFormat setDateFormat:@"2013-MM-dd'T'HH:mm:00 PST"]; //iso 8601 format
              NSDate *output = [dateFormat dateFromString:input];
              
              NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -139,6 +139,8 @@
                  event[@"date_formatted"] = [@"Date: " stringByAppendingString:[formatter stringFromDate:output]];
              else
                  event[@"date_formatted"] = @"";
+             
+             
             }
          ];
         

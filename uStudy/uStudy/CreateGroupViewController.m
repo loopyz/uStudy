@@ -7,6 +7,7 @@
 //
 
 #import "CreateGroupViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 #import <Firebase/Firebase.h>
 #import "AppDelegate.h"
 
@@ -16,6 +17,9 @@
 
 @implementation CreateGroupViewController
 
+@synthesize classLabel, locationLabel, startTimeLabel;
+@synthesize classPickerView, locationTextField, startTimePicker;
+@synthesize classr, classes, groupName;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,42 +33,23 @@
         // adding all the labels and picker views
         self.classLabel = [[UILabel alloc] init];
         self.locationLabel = [[UILabel alloc] init];
-        self.startTimeButton = [[UIButton alloc] init];
-        self.endTimeButton = [[UIButton alloc] init];
+        self.startTimeLabel = [[UILabel alloc] init];
         
         self.classPickerView = [[UIPickerView alloc] init];
         self.locationTextField = [[UITextField alloc] init];
         self.startTimePicker = [[UIDatePicker alloc] init];
-        self.endTimePicker = [[UIDatePicker alloc] init];
         
+    UIImage *buttonImage = [UIImage imageNamed:@"college-submit.png"];
+    UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [submitButton addTarget:self action:@selector(addNewGroup) forControlEvents:UIControlEventTouchDown];
+    [submitButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
         //designing stuff
         self.classLabel.frame = CGRectMake(20,10,100,100);
         self.classLabel.text = @"Class";
         self.locationLabel.frame = CGRectMake(20,120,100,100);
         self.locationLabel.text = @"Location";
-        self.startTimeButton.frame = CGRectMake(20,220,100,100);
-        self.endTimeButton.frame = CGRectMake(20,280,100, 100);
+        self.startTimeLabel.frame = CGRectMake(20,220,100,100);
         
-        [self.locationLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.classLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.startTimeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.endTimeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.classPickerView setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.locationTextField setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.startTimePicker setTranslatesAutoresizingMaskIntoConstraints:NO];
-        [self.endTimePicker setTranslatesAutoresizingMaskIntoConstraints:NO];
-        //white color text
-        //    self.classLabel.textColor = [UIColor whiteColor];
-        //    self.classLabel.textColor = [UIColor whiteColor];
-        //    self.locationLabel.textColor = [UIColor whiteColor];
-        self.startTimeButton.titleLabel.textColor = [UIColor blackColor];
-        
-        [self.startTimeButton setTitle:@"Starts" forState:UIControlStateNormal|UIControlStateHighlighted| UIControlStateDisabled|UIControlStateSelected];
-        [self.endTimeButton setTitle:@"Ends" forState:UIControlStateNormal|UIControlStateHighlighted| UIControlStateDisabled|UIControlStateSelected];
-        //[self.startTimeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal|UIControlStateHighlighted| UIControlStateDisabled|UIControlStateSelected];
-        //[self.endTimeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal|UIControlStateHighlighted| UIControlStateDisabled|UIControlStateSelected];
-        //[self.startTimeButton addTarget:self action:@selector(startButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        //[self.endTimeButton addTarget:self action:@selector(endButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         self.classPickerView.frame = CGRectMake(20,0,280,200);
         
@@ -72,7 +57,7 @@
         self.locationTextField.backgroundColor = [UIColor blackColor];
         self.locationTextField.textColor = [UIColor whiteColor];
         self.startTimePicker.frame = CGRectMake(20,240,400,400);
-        self.endTimePicker.frame = CGRectMake(20,340,400,400);
+        submitButton.frame = CGRectMake(20,400,100,100);
         
         //make location text field pretty
         self.locationTextField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -86,11 +71,6 @@
 
         
         self.startTimePicker.datePickerMode = UIDatePickerModeDateAndTime;
-        self.endTimePicker.datePickerMode = UIDatePickerModeDateAndTime;
-        self.startTimePicker.hidden = YES;
-        self.endTimePicker.hidden = YES;
-        [self.startTimePicker addTarget:self action:@selector(startValueChanged:) forControlEvents:UIControlEventValueChanged];
-        [self.endTimePicker addTarget:self action:@selector(endvalueChanged:) forControlEvents:UIControlEventValueChanged];
         
         //picker view stuff
         self.classPickerView.delegate = self;
@@ -104,11 +84,9 @@
         [self.view addSubview:self.classPickerView];
         [self.view addSubview:self.locationTextField];
         [self.view addSubview:self.startTimePicker];
-        [self.view addSubview:self.endTimePicker];
         
-        [self.view addSubview:self.startTimeButton];
-        [self.view addSubview:self.endTimeButton];
-        
+        [self.view addSubview:self.startTimeLabel];
+        [self.view addSubview:submitButton];
         
         NSString *username = @"633454537";
         //NSMutableDictionary *newEvents = [[NSMutableDictionary alloc] init];
@@ -126,7 +104,7 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
 
 - (void)didFinishChoosing
@@ -143,133 +121,21 @@
     }];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    //go to next view :P
-    return false;
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.classes = [[NSMutableArray alloc] init];
-//	// Do any additional setup after loading the view.
-//    // adding all the labels and picker views
-//    self.classLabel = [[UILabel alloc] init];
-//    self.locationLabel = [[UILabel alloc] init];
-//    self.startTimeButton = [[UIButton alloc] init];
-//    self.endTimeButton = [[UIButton alloc] init];
-//
-//    self.classPickerView = [[UIPickerView alloc] init];
-//    self.locationTextField = [[UITextField alloc] init];
-//    self.startTimePicker = [[UIDatePicker alloc] init];
-//    self.endTimePicker = [[UIDatePicker alloc] init];
-//    
-//    //designing stuff
-//    self.classLabel.frame = CGRectMake(20,10,100,100);
-//    self.classLabel.text = @"Class";
-//    self.locationLabel.frame = CGRectMake(20,120,100,100);
-//    self.locationLabel.text = @"Location";
-//    self.startTimeButton.frame = CGRectMake(20,220,100,100);
-//    self.endTimeButton.frame = CGRectMake(20,280,100, 100);
-//    
-//    [self.locationLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.classLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.startTimeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.endTimeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.classPickerView setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.locationTextField setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.startTimePicker setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    [self.endTimePicker setTranslatesAutoresizingMaskIntoConstraints:NO];    
-//    //white color text
-////    self.classLabel.textColor = [UIColor whiteColor];
-////    self.classLabel.textColor = [UIColor whiteColor];
-////    self.locationLabel.textColor = [UIColor whiteColor];
-//    self.startTimeButton.titleLabel.textColor = [UIColor blackColor];
-//    
-//    [self.startTimeButton setTitle:@"Starts" forState:UIControlStateNormal|UIControlStateHighlighted| UIControlStateDisabled|UIControlStateSelected];
-//    [self.endTimeButton setTitle:@"Ends" forState:UIControlStateNormal|UIControlStateHighlighted| UIControlStateDisabled|UIControlStateSelected];
-//    //[self.startTimeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal|UIControlStateHighlighted| UIControlStateDisabled|UIControlStateSelected];
-//    //[self.endTimeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal|UIControlStateHighlighted| UIControlStateDisabled|UIControlStateSelected];
-//    //[self.startTimeButton addTarget:self action:@selector(startButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//   //[self.endTimeButton addTarget:self action:@selector(endButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    self.classPickerView.frame = CGRectMake(20,0,280,200);
-// 
-//    self.locationTextField.frame = CGRectMake(100,155,180,30);
-//    self.locationTextField.backgroundColor = [UIColor blackColor];
-//    self.locationTextField.textColor = [UIColor whiteColor];
-//    self.startTimePicker.frame = CGRectMake(20,240,400,400);
-//    self.endTimePicker.frame = CGRectMake(20,340,400,400);
-//    
-//    self.startTimePicker.datePickerMode = UIDatePickerModeDateAndTime;
-//    self.endTimePicker.datePickerMode = UIDatePickerModeDateAndTime;
-//    self.startTimePicker.hidden = YES;
-//    self.endTimePicker.hidden = YES;
-//    [self.startTimePicker addTarget:self action:@selector(startValueChanged:) forControlEvents:UIControlEventValueChanged];
-//    [self.endTimePicker addTarget:self action:@selector(endvalueChanged:) forControlEvents:UIControlEventValueChanged];
-//    
-//    //picker view stuff
-//    self.classPickerView.delegate = self;
-//    self.classPickerView.dataSource = self;
-//    self.classPickerView.showsSelectionIndicator = YES;
-//    [self loadAndUpdateClasses];
-//    
-//    [self.view addSubview:self.locationLabel];
-//    [self.view addSubview:self.classLabel];
-//    
-//    [self.view addSubview:self.classPickerView];
-//    [self.view addSubview:self.locationTextField];
-//    [self.view addSubview:self.startTimePicker];
-//    [self.view addSubview:self.endTimePicker];
-//    
-//    [self.view addSubview:self.startTimeButton];
-//    [self.view addSubview:self.endTimeButton];
-//    
-//
-//    NSString *username = @"633454537";
-//    //NSMutableDictionary *newEvents = [[NSMutableDictionary alloc] init];
-//    Firebase *usersRef = [[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users"];
-//    Firebase *eventsRef = [[usersRef childByAppendingPath:username] childByAppendingPath:@"events"];
-//    
-//    // put fb event id here.
-//    //[[eventsRef childByAutoId] setValue:@"Cameras"];
     
     
-}
-
-
--(void) startButtonPressed:(id)button {
-    self.startTimePicker.hidden = NO;
-    self.endTimePicker.hidden = YES;
-    //self.startTimeButton.hidden = YES;
-}
--(void) endButtonPressed:(id)button {
-    //self.endTimeButton.hidden = YES;
-    self.endTimePicker.hidden = NO;
-    self.startTimePicker.hidden = YES;
-}
--(void) startValueChanged:(id)datepick {
-    //self.startTimePicker.hidden = YES;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM/dd - hh:mm"];
-    NSString *newStr = [formatter stringFromDate:self.startTimePicker.date];
-    NSLog(newStr);
-    [self.startTimeButton setTitle:newStr forState:UIControlStateNormal|UIControlStateHighlighted| UIControlStateDisabled|UIControlStateSelected];
     
-    //self.startTimeButton.hidden = NO;
-}
--(void) endValueChanged:(id)datepick {
-    //self.endTimeButton.hidden = NO;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM/dd - hh:mm"];
-    NSString *newStr = [formatter stringFromDate:self.endTimePicker.date];
-    [self.endTimeButton setTitle:newStr forState:UIControlStateNormal|UIControlStateHighlighted| UIControlStateDisabled|UIControlStateSelected];
-    NSLog(@"horses");
-    NSLog(newStr);
-    self.endTimePicker.hidden = YES;
+    NSString *username = @"633454537";
+    //NSMutableDictionary *newEvents = [[NSMutableDictionary alloc] init];
+    Firebase *usersRef = [[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users"];
+    Firebase *eventsRef = [[usersRef childByAppendingPath:username] childByAppendingPath:@"events"];
+    
+    // put fb event id here.
+    //[[eventsRef childByAutoId] setValue:@"Cameras"];
+    
+    
 }
 
 - (void)loadAndUpdateClasses
@@ -308,21 +174,72 @@
     return [self.classes count];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    //go to next view :P
+    return false;
+}
+
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [self.classes objectAtIndex:row];
-}
-
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
-    if ([touch view] != self.startTimePicker && [touch view] != self.endTimePicker){
+    if ([touch view] != self.startTimePicker){
         [self.startTimePicker endEditing:YES];
-        [self.endTimePicker endEditing:YES];
     }
 }
 
 
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row   inComponent:(NSInteger)component
+{
+    self.classr = self.classes[row];
+}
+
+- (void)exit {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+- (void) addNewGroup
+{
+    NSLog(@"Added new group");
+    NSString *description = [NSString stringWithFormat:@"Studying for %s with %s at uStudy!", self.classr, self.groupName];
+    
+    [self createFacebookEvent:self.groupName withStartTime:[self.startTimePicker date] andLocation:self.locationTextField.text andDescription:description];
+}
+
+- (NSString *)dateToString: (NSDate *)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    [formatter setDateFormat:@"MM/dd - hh:mm"];
+    return [formatter stringFromDate:date];
+}
+
+-(void)createFacebookEvent:(NSString *)name withStartTime:(NSDate *)sdate andLocation:(NSString *)location andDescription:(NSString *)description {
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            name,@"name",
+                            [self dateToString:sdate],@"start_time",
+                            location,@"location",
+                            description,@"description",
+                            nil];
+    
+    [FBRequestConnection startWithGraphPath:@"me/events"
+                         parameters:params
+                         HTTPMethod:@"POST"
+                          completionHandler:^(FBRequestConnection *connection,id result, NSError *error) {
+                              AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                              if (!error && result) {
+                                  NSString *username = appDelegate.username;
+                                  Firebase *eventUserRef = [[[[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users/"] childByAppendingPath:username] childByAppendingPath:@"events"];
+                                  Firebase *eventClassRef = [[[[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/classes"] childByAppendingPath:self.classr] childByAppendingPath:@"events"];
+                                  [[eventUserRef childByAutoId] setValue:result[@"id"]];
+                                  [[eventClassRef childByAutoId] setValue:result[@"id"]];
+                                  [self exit];
+                              } else {
+                                  [appDelegate showMessage:@"Error creating study group, try again later" withTitle:@"Error"];
+                              }
+                          }];
+}
 @end
