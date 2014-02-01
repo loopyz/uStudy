@@ -1,12 +1,12 @@
 //
-//  SearchClassesViewController.m
+//  SearchGroupsViewController.m
 //  uStudy
 //
 //  Created by Lucy Guo on 2/1/14.
 //  Copyright (c) 2014 Angela Zhang. All rights reserved.
 //
 
-#import "SearchClassesViewController.h"
+#import "SearchGroupsViewController.h"
 #import <Firebase/Firebase.h>
 #import "AppDelegate.h"
 
@@ -14,17 +14,17 @@
 #define firebaseURL @"https://ustudy.firebaseio.com/"
 
 
-@interface SearchClassesViewController ()
+@interface SearchGroupsViewController ()
 @property (nonatomic, strong) NSMutableIndexSet *optionIndices;
 
 @end
 
-@implementation SearchClassesViewController
+@implementation SearchGroupsViewController
 {
     //NSMutableArray *rectangles;
 }
 
-@synthesize classes;
+@synthesize groups;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -37,7 +37,7 @@
         //[self initNavBarItems];
         [self addBackgroundImage];
         
-    
+        
     }
     return self;
 }
@@ -78,33 +78,33 @@
     self.tableView.delegate = self;
     
     //initialize array that will store the classes
-    self.classes = [[NSMutableArray alloc] init];
+    self.groups = [[NSMutableArray alloc] init];
     
     //Initialize the root of our Firebase namespace
     self.firebase = [[Firebase alloc] initWithUrl:firebaseURL];
-    [self loadAndUpdateClasses];
-
+    [self loadAndUpdateGroups];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)loadAndUpdateClasses
+- (void)loadAndUpdateGroups
 {
-   AppDelegate* appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate* appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     NSString *username = @"633454537";//appDelegate.username;
     
-    Firebase *classesRef = [[[self.firebase childByAppendingPath:@"users"] childByAppendingPath:username] childByAppendingPath:@"classes"];
+    Firebase *groupsRef = [[[self.firebase childByAppendingPath:@"users"] childByAppendingPath:username] childByAppendingPath:@"groups"];
     
-    [classesRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        if (snapshot == [NSNull null]) {
-            NSLog(@"There are no classes");
+    [groupsRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if (snapshot == [NSNull null] || snapshot.value == [NSNull null]) {
+            NSLog(@"There are no groups");
         } else {
-            NSArray *classesSnp = [snapshot.value allValues];
-            self.classes = [classesSnp mutableCopy];
+            NSArray *groupsSnp = [snapshot.value allValues];
+            self.groups = [groupsSnp mutableCopy];
             [self.tableView reloadData];
         }
     }];
@@ -140,7 +140,7 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.classes count];;
+    return [self.groups count];;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -167,12 +167,12 @@
     }
     
     //gets class name
-    NSString *class = [self.classes objectAtIndex:indexPath.row];
+    NSString *group = [self.groups objectAtIndex:indexPath.row];
     
     //update cell name and description
-    if(!class)
+    if(!group)
     {
-        NSLog(@"Class not found:");
+        NSLog(@"Group not found:");
         return cell;
     }
     
@@ -180,19 +180,19 @@
     cell.backgroundView = [[UIImageView alloc] initWithImage: bgRect];
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage: bgRect];
     
-    //Class Title Label
-    UILabel *classLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 320, 40)];
+    //group Title Label
+    UILabel *groupLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 320, 40)];
     int size = 22;
-    int length = [class length];
+    int length = [group length];
     
-    //shorted class string
-    NSRange stringRange = {0, MIN([class length], 20)};
+    //shorted group string
+    NSRange stringRange = {0, MIN([group length], 20)};
     // adjust the range to include dependent chars
-    stringRange = [class rangeOfComposedCharacterSequencesForRange:stringRange];
+    stringRange = [group rangeOfComposedCharacterSequencesForRange:stringRange];
     // Now you can create the short string
-    NSString *shortString = [class substringWithRange:stringRange];
+    NSString *shortString = [group substringWithRange:stringRange];
     
-    [self setupLabel:classLabel forCell:cell withText:class withSize: 12];
+    [self setupLabel:groupLabel forCell:cell withText:group withSize: 12];
     
     return cell;
     
@@ -202,7 +202,7 @@
 // Allow deleting of rows by swipe
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [classes removeObjectAtIndex:indexPath.row];
+    [groups removeObjectAtIndex:indexPath.row];
     
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     
@@ -230,54 +230,54 @@
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
+ #pragma mark - Navigation
+ 
+ // In a story board-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ 
  */
 
 @end

@@ -29,14 +29,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     NSString *username = @"633454537";
-    NSMutableDictionary *newEvents = [[NSMutableDictionary alloc] init];
+    //NSMutableDictionary *newEvents = [[NSMutableDictionary alloc] init];
     Firebase *usersRef = [[Firebase alloc] initWithUrl:@"https://ustudy.firebaseio.com/users"];
     Firebase *eventsRef = [[usersRef childByAppendingPath:username] childByAppendingPath:@"events"];
     
-    newEvents[@"15213"] = @true;
-    newEvents[@"10601"] = @true;
-    
-    [eventsRef setValue:newEvents];
+    // put fb event id here.
+    [[eventsRef childByAutoId] setValue:@"Cameras"];
 }
 
 - (void)didReceiveMemoryWarning

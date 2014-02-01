@@ -8,6 +8,7 @@
 
 #import "CalendarViewController.h"
 #import "SearchClassesViewController.h"
+#import "SearchGroupsViewController.h"
 
 #import <Firebase/Firebase.h>
 
@@ -237,9 +238,12 @@
             [self.navigationController pushViewController:svc animated:YES];
             break;
         }
-        case 2:
+        case 2: {
             //Gameify!
+            SearchGroupsViewController *sgvc = [[SearchGroupsViewController alloc] init];
+            [self.navigationController pushViewController:sgvc animated:YES];
             break;
+        }
         case 3:
             [FBSession.activeSession closeAndClearTokenInformation];
             LoginViewController *loginViewController = [[LoginViewController alloc] init];
