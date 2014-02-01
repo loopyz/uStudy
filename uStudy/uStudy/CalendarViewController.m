@@ -120,8 +120,8 @@
         _tableView.tableHeaderView = nil;
         
         UIColor *gray = [UIColor colorWithRed:186/255.0f green:184/255.0f blue:184/255.0f alpha:1.0f];
-        //self.tableView.backgroundColor = gray;
-        self.tableView.alpha = .6;
+        self.tableView.backgroundColor = [UIColor whiteColor];
+        self.tableView.alpha = .8;
                 
         /*UIView* bgView = [[UIView alloc] init];
         bgView.backgroundColor = [UIColor colorWithRed:0 green:0.655 blue:0.796 alpha:1.0];
@@ -144,6 +144,15 @@
         RNFrostedSidebar *callout = [[RNFrostedSidebar alloc] initWithImages:images];
         callout.delegate = self;
         [callout show];
+        
+        //logo
+        /* Setting up navigation bar items */
+        UIView *logoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 180, 50)];
+        UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+        titleImageView.frame = CGRectMake(60, 10, 62.5, 30);
+        [logoView addSubview:titleImageView];
+        self.navigationItem.titleView = logoView;
+
     }
     return self;
 }
@@ -172,8 +181,6 @@
         [sender setAlpha:.5];
         self.firstButton = sender;
     }
-    
-    
     
     //TODO: at this point query firebase using date (which has format 'Mon\n17' [example]) to get events for given day
     //then set items that get returned from that as the items in the NSMutableArray _data
