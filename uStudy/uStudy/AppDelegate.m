@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Angela Zhang. All rights reserved.
 //
 
-#define FORCE_LOGOUT true
+#define FORCE_LOGOUT false
 #import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
 #import "CollegeViewController.h"
@@ -34,15 +34,6 @@
     self.window.rootViewController = navigationController;
     self.window.backgroundColor = [UIColor colorWithRed:0.953 green:0.949 blue:0.949 alpha:1.0];
 
-//    // Override point for customization after application launch.
-//    
-//    LoginViewController *lvc = [[LoginViewController alloc] init];
-//    
-//    CollegeViewController *temp = [[CollegeViewController alloc] init];
-//    
-//    self.window.rootViewController = lvc;
-//    
-//    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     if (FORCE_LOGOUT)
